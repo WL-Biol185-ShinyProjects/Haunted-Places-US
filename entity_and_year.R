@@ -7,44 +7,19 @@ glimpse(haunted)
 
 # ---- Cleaning: drop duplicate rows ---------------------------
 # distinct() keeps only the unique rows and throws away repeats.
-#Do this FIRST, before adding columns, so a duplicate
-# never gets counted twice in any of your tallies.
-#
+
 # nrow() counts rows, so this tells you how many got dropped.
 nrow(haunted)
 
 haunted <- haunted %>%
   distinct()
 
-nrow(haunted)   # 2 fewer: there were 2 exact duplicate rows
-
-# A looser version: some rows have the SAME description but differ
-# in another column (a typo in the city, slightly different
-# coordinates). .keep_all = TRUE keeps the first full row of each
-# repeated description. Uncomment if you want those gone too --
-# it removes 3 more rows.
-#
-# haunted <- haunted %>%
-#   distinct(description, .keep_all = TRUE)
+nrow(haunted)   
 
 
-# ==============================================================
-# PART 1: entity_type -- ONE column, the type is the value
-# ==============================================================
-# case_when() checks rules top to bottom and stops at the FIRST
-# one that is TRUE, so each row gets exactly one label (Ch. 5).
-#
-# Inside each rule, str_detect() asks "does this text contain
-# this pattern?" (Ch. 14 Strings). The pattern pieces:
-#   |   means "or", so "demon|devil" matches either word
-#   \\b means "word boundary", so "\\borb\\b" matches orb but
-#       NOT absorb or orbit
-#   regex(..., ignore_case = TRUE) matches Ghost, GHOST, ghost
-#
-# ORDER IS THE PRIORITY. Rare, specific words go FIRST; "ghost"
-# is the most common word, so it goes LAST. If it were first it
-# would swallow almost everything. TRUE ~ "unspecified" is the
-# catch-all for rows that matched nothing.
+
+# Derivning entity_type
+
 
 haunted <- haunted %>%
   mutate(
@@ -60,36 +35,26 @@ haunted <- haunted %>%
       str_detect(description, regex("\\bghost", ignore_case = TRUE))                                          ~ "ghost",
       TRUE                                                                                                    ~ "unspecified"
     ),
-    # factor() tells R these are categories, not free text (Ch. 15)
     entity_type = factor(entity_type)
   )
 
-# Check it. count() tallies rows per category (Ch. 5).
 haunted %>%
   count(entity_type, sort = TRUE)
 
-# Read a few real matches to be sure the patterns behave.
 haunted %>%
   filter(entity_type == "poltergeist") %>%
   select(state, location, description) %>%
   head(3)
 
 
-# ==============================================================
-# PART 2: year columns -- strict 4-digit years only
-# ==============================================================
-# str_extract() pulls out the FIRST match and gives NA when there
-# is no match (Ch. 14). That NA is exactly what you asked for:
-# rows with no 4-digit year stay empty instead of getting a guess.
-#
+# Deriving year columns - 4-digit years only
+
 # The pattern "\\b(1[5-9]\\d\\d|20[0-2]\\d)\\b" means:
 #   1[5-9]\\d\\d  -> 1500-1999 (1887, 1963)
 #   20[0-2]\\d    -> 2000-2029 (2003)
 #   \\b ... \\b   -> whole numbers only, so a street address like
 #                    "Route 1800A" or a 5-digit number won't match
-#
-# as.integer() turns the matched text "1887" into the number 1887
-# so you can sort, filter, and do math with it.
+
 
 year_pattern <- "\\b(1[5-9]\\d\\d|20[0-2]\\d)\\b"
 
@@ -101,11 +66,10 @@ haunted <- haunted %>%
     has_year = !is.na(year),
 
     # Decade, by rounding down to the nearest 10. Stays NA when
-    # year is NA, because NA arithmetic in R gives NA.
+    # year is NA
     decade = floor(year / 10) * 10
   )
 
-# How many rows got a year?
 haunted %>%
   count(has_year)
 
