@@ -20,6 +20,10 @@ ggplot(reactive({
 
 library(tidyverse)
 library(ggplot2)
+install.packages("remotes")
+remotes::install_github("showteeth/ggpie")
+library(ggpie)
+
 
 
 ggplot(
