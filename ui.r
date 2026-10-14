@@ -1,1 +1,1 @@
-#reserves spot on website page for elements
+#reserves spot on website page for the elements
