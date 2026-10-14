@@ -6,8 +6,8 @@ glimpse(haunted)
 
 
 # ---- Cleaning: drop duplicate rows ---------------------------
-# distinct() keeps only the unique rows and throws away repeats
-# (Ch. 5). Do this FIRST, before adding columns, so a duplicate
+# distinct() keeps only the unique rows and throws away repeats.
+#Do this FIRST, before adding columns, so a duplicate
 # never gets counted twice in any of your tallies.
 #
 # nrow() counts rows, so this tells you how many got dropped.
