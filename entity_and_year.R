@@ -18,7 +18,7 @@ nrow(haunted)
 
 
 
-# Derivning entity_type
+# Deriving entity_type
 
 
 haunted <- haunted %>%
@@ -73,8 +73,7 @@ haunted <- haunted %>%
 haunted %>%
   count(has_year)
 
-# Oldest and newest years mentioned. na.rm = TRUE tells R to skip
-# the empty rows instead of returning NA.
+# Oldest and newest years mentioned
 haunted %>%
   summarise(
     earliest = min(year, na.rm = TRUE),
@@ -83,26 +82,15 @@ haunted %>%
   )
 
 
-# ==============================================================
-# PART 3: setting -- ONE column, same style as entity_type
-# ==============================================================
 # The setting is often named in the `location` column rather than
-# in the description ("Railroad Crossing", "University Chapel"),
-# so we search BOTH. str_c() glues strings together (Ch. 14).
-#
-# coalesce() swaps NA for "" first. Without it, str_c() would turn
-# the whole row into NA whenever location is missing (3 rows here).
+# in the description, coalesce() swaps NA for "" first
 
 haunted <- haunted %>%
   mutate(
     setting_text = str_c(coalesce(location, ""), " ", description)
   )
 
-# Same case_when() idea as entity_type: first TRUE wins, so the
-# ORDER sets the priority. Specific venues go first; broad words
-# like "house", "road" and "building" go last, because they show
-# up inside other kinds of stories ("the house next to the old
-# mill") and would otherwise grab those rows first.
+# Same case_when() idea as entity_type: first TRUE wins
 
 haunted <- haunted %>%
   mutate(
@@ -128,14 +116,12 @@ haunted <- haunted %>%
     ),
     setting = factor(setting)
   ) %>%
-  # setting_text was only scratch work, so drop it (Ch. 5)
   select(-setting_text)
 
-# Check it.
 haunted %>%
   count(setting, sort = TRUE)
 
-# Spot-check a category you're unsure about.
+# Spot-check a category
 haunted %>%
   filter(setting == "road") %>%
   select(state, location, description) %>%
@@ -147,20 +133,12 @@ haunted %>%
   head(10)
 
 
-# ==============================================================
-# PART 4: phenomena_type -- what people experience
-# ==============================================================
 # Four kinds of experience:
 #   physical -- things move on their own (doors, objects, lights)
 #   tactile  -- felt on the body (touched, cold spots, watched)
 #   auditory -- heard (footsteps, voices, screams, music)
 #   visual   -- seen (figures, lights, orbs, mist)
-#
 # Same case_when() pattern, and the ORDER is doing real work here.
-# Most descriptions mention more than one kind, so the order
-# decides which one wins. It runs from most distinctive to most
-# generic: a slamming door is a specific claim, while "was seen"
-# shows up in nearly every story, so visual goes last.
 
 haunted <- haunted %>%
   mutate(
@@ -178,17 +156,7 @@ haunted %>%
   count(phenomena_type, sort = TRUE)
 
 
-# ==============================================================
-# PART 5: death_cause -- how the person died
-# ==============================================================
-# Most descriptions never say, so "unspecified" is the biggest
-# group by far. That is the honest answer, not a gap to fill in.
-#
-# ORDER matters a lot here. "murder" has to go LAST among the
-# violent causes because its pattern includes the bare word
-# "killed", which also appears in hangings, war deaths, and
-# accidents. Putting it first would pull those rows away from
-# their real cause. Specific phrases go first.
+# Cause of death
 
 haunted <- haunted %>%
   mutate(
@@ -217,14 +185,7 @@ haunted %>%
   head(3)
 
 
-# ==============================================================
-# PART 6: time_of_day -- when the haunting happens
-# ==============================================================
-# ORDER here goes from the NARROWEST time window to the BROADEST.
-# "midnight" is one specific hour, while "night" covers every dark
-# hour, so night goes last and acts as the catch-all. A story that
-# says "at dusk and again at night" lands in evening, the more
-# specific claim.
+# Time of occurrence: Order goes narrow to broad
 
 haunted <- haunted %>%
   mutate(
@@ -243,39 +204,23 @@ haunted %>%
   count(time_of_day, sort = TRUE)
 
 
-# ==============================================================
-# PART 7: division -- the nine U.S. Census divisions
-# ==============================================================
-# This one is NOT a str_detect() problem. The state is already in
-# its own column, so instead we build a small lookup table and
-# JOIN it on (Ch. 13 Relational data). That is the right tool
-# whenever you want to attach extra facts to a key you already
-# have.
-#
-# Base R ships three handy vectors -- state.name, state.region and
-# state.division -- so you don't type out 50 states by hand.
-# tibble() builds the lookup table from two of them (Ch. 10).
+# Divide hauntings into nine U.S. Census divisions
 
 state_divisions <- tibble(
   state    = state.name,
   division = as.character(state.division)
 )
 
-# Base R's list has no Washington DC, but your data has 16 rows of
-# it. add_row() appends it so those rows don't come out NA. The
-# Census counts DC as South Atlantic.
+# Add DC to South Atlantic
 state_divisions <- state_divisions %>%
   add_row(state = "Washington DC", division = "South Atlantic")
 
-# left_join() keeps every row of `haunted` and adds the matching
-# division (Ch. 13). "left" means: never drop a haunted place,
-# even if its state somehow isn't in the lookup table.
+# Keep the row even if state specification doesn't line up
 haunted <- haunted %>%
   left_join(state_divisions, by = "state") %>%
   mutate(division = factor(division))
 
-# ALWAYS check a join for unmatched rows. If this is more than 0,
-# a state name in your data doesn't match the lookup table.
+# Check for unmatched rows to ensure state inclusion
 haunted %>%
   filter(is.na(division)) %>%
   count(state)
@@ -284,11 +229,7 @@ haunted %>%
   count(division, sort = TRUE)
 
 
-# ==============================================================
-# PART 8: look at it
-# ==============================================================
-# fct_infreq() reorders bars from most to least common (Ch. 15).
-# geom_bar() counts the rows for you (Ch. 3).
+# Table of # haunted places by entity type
 
 haunted %>%
   mutate(entity_type = fct_infreq(entity_type)) %>%
@@ -301,8 +242,7 @@ haunted %>%
   ) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-# Years over time. filter() drops the empty rows first so ggplot
-# doesn't warn about them. geom_histogram() buckets the years.
+# Table of # haunted places over years
 haunted %>%
   filter(has_year) %>%
   ggplot(aes(x = year)) +
@@ -313,7 +253,7 @@ haunted %>%
     y = "Number of places"
   )
 
-# Settings, most to least common.
+# Table of # haunted places by setting
 haunted %>%
   mutate(setting = fct_infreq(setting)) %>%
   ggplot(aes(y = setting)) +
@@ -324,8 +264,7 @@ haunted %>%
     y = "Setting"
   )
 
-# Phenomena split by setting. fill = puts one colour per
-# phenomena type inside each setting's bar (Ch. 3).
+# Table of # haunted places by setting, color coded to phenomena experienced
 haunted %>%
   mutate(setting = fct_infreq(setting)) %>%
   ggplot(aes(y = setting, fill = phenomena_type)) +
@@ -337,7 +276,7 @@ haunted %>%
     fill = "Phenomena"
   )
 
-# Places per division.
+# Table of # haunted places by Census division
 haunted %>%
   mutate(division = fct_infreq(division)) %>%
   ggplot(aes(y = division)) +
@@ -348,9 +287,7 @@ haunted %>%
     y = "Division"
   )
 
-# Does time of day differ by division? position = "fill" turns
-# each bar into proportions instead of raw counts (Ch. 3), which
-# is what you want when the divisions have different totals.
+# Out of the hauntings that name a time, table of time of day phenomena experienced by Census division
 haunted %>%
   filter(time_of_day != "unspecified") %>%
   ggplot(aes(y = division, fill = time_of_day)) +
@@ -361,9 +298,5 @@ haunted %>%
     y = "Division",
     fill = "Time of day"
   )
-
-
-# ---- Save ----------------------------------------------------
-# Writes a new file; your original CSV is untouched.
 
 write_csv(haunted, "haunted_places_clean.csv")
