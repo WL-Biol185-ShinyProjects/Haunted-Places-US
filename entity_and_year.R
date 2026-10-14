@@ -14,7 +14,7 @@ nrow(haunted)
 haunted <- haunted %>%
   distinct()
 
-nrow(haunted)   
+nrow(haunted) 
 
 
 
@@ -232,6 +232,7 @@ haunted %>%
 # Table of # haunted places by entity type
 
 haunted %>%
+  filter(entity_type != "unspecified") %>%
   mutate(entity_type = fct_infreq(entity_type)) %>%
   ggplot(aes(x = entity_type)) +
   geom_bar() +
