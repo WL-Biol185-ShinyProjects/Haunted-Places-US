@@ -24,10 +24,19 @@ install.packages("remotes")
 remotes::install_github("showteeth/ggpie")
 library(ggpie)
 
+haunted_places <- haunted_places_clean
 
 
-ggplot(
-  haunted_places %>%
-    filter(state == "Alabama"), 
-  aes("setting", "Alabama")  
-  ) + geom_bar()
+ggpie(reactive({haunted_places %>%
+      filter(state == input$state)}), 
+  group_key = "setting",
+  count_type  = "full",
+  label_info  = "ratio",
+  label_type  = "horizon",
+  label_pos   = "out",
+  label_split = NULL,
+  label_size  = 4,
+  border_color = "white",
+  border_size  = 1
+  )  
+  

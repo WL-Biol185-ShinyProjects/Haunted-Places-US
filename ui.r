@@ -18,3 +18,24 @@ shinyUI(
     )
   )
 )
+
+#pie chart
+
+shinyUI(
+  fluidPage(
+    titlePanel("Haunted Places by State"),
+    sidebarLayout(
+      sidebarPanel(
+        selectInput(
+          inputId = "state",
+          label = "State:",
+          choices = sort(unique(haunted_places$state)),
+          selected = "Alabama"
+        )
+      ),
+        mainPanel(
+          plotOutput("pie")
+          )
+        )
+      )
+    )
