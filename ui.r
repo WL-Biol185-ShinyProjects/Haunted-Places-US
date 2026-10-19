@@ -3,6 +3,8 @@
 library(shiny)
 library(ggplot2)
 
+haunted_places <- read.csv("haunted_places_clean.csv")
+
 title = "hauntedBarAnalysis"
 shinyUI(
   fluidPage(
@@ -29,8 +31,8 @@ shinyUI(
         selectInput(
           inputId = "state",
           label = "State:",
-          choices = sort(unique(haunted_places$state)),
-          selected = "Alabama"
+          choices = c("All States", sort(unique(haunted_places$state))),
+          selected = "All States"
         )
       ),
         mainPanel(

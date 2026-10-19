@@ -3,8 +3,12 @@
 library(shiny)
 library(ggplot2)
 library(tidyverse)
+install.packages("remotes")
+remotes::install_github("showteeth/ggpie")
+#^^^this runs every single time the app is created, should probably put this somewhere else
+library(ggpie)
 
-haunted_places <- haunted_places_clean
+haunted_places <- read.csv("haunted_places_clean.csv")
 
 # Plot of Haunted Places by State  
 function(input, output) {
@@ -29,10 +33,10 @@ function(input, output) {
     
   })
   
-}
+
 
 # Plot of Haunted Places by Entity Type
-function(input, output) {  
+
   output$hauntedBarChart <- renderPlot({
     
     haunted_places_clean %>%
@@ -47,15 +51,14 @@ function(input, output) {
       ) +
       theme(axis.text.x = element_text(angle = 45, hjust = 1))
   })
-}
 
+  
 
 #setting vs state pie chart
 
-function(input, output) {  
   output$pie <- renderPlot({
 ggpie(haunted_places %>%
-      filter(state == input$state), 
+      filter(input$state == "All States" | state == input$state), 
     group_key = "setting",
     count_type  = "full",
     label_info  = "ratio",
