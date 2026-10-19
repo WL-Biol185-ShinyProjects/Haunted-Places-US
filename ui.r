@@ -5,9 +5,8 @@ library(ggplot2)
 
 haunted_places <- read.csv("haunted_places_clean.csv")
 
-title = "hauntedBarAnalysis"
-shinyUI(
-  fluidPage(
+
+    fluidPage(
     titlePanel("Haunted Places by State"),
     sidebarLayout(
       sidebarPanel(
@@ -17,14 +16,9 @@ shinyUI(
       mainPanel(
         plotOutput("hauntedBarChart")
       )
-    )
-  )
-)
-
+    ),
+  
 #pie chart
-
-shinyUI(
-  fluidPage(
     titlePanel("Haunted Places by State"),
     sidebarLayout(
       sidebarPanel(
@@ -40,4 +34,3 @@ shinyUI(
           )
         )
       )
-    )
