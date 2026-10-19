@@ -31,6 +31,30 @@ function(input, output){
   
 # Plot of Phenomena Type by Setting
   
+
+    output$phenomenatype_setting <- renderPlot({
+      
+      haunted_places_clean %>%
+        filter(phenomena_type != "unspecified") %>%
+        mutate(phenomena_type = fct_infreq(phenomena_type)) %>%
+        ggplot(aes(x = phenomena_type)) +
+        geom_bar(fill = "#1F4E79") +
+        labs(
+          title = "Haunted Places by Phenomena Type",
+          x = "Phenomena Type (If Specified)",
+          y = "Number of Places"
+        ) +
+        theme(
+          axis.text.x = element_text(
+            angle = 45,
+            hjust = 1
+          )
+        )
+      
+    })
+
+  
+  
   
   
   

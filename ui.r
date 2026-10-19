@@ -34,6 +34,16 @@ ui <- navbarPage(
   tabPanel(
     "Regions",
     h1("Explore Haunted History by Region"),
-    p("Compare haunted history across different regions of the United States.")
+    p("Compare haunted history across different regions of the United States."),
+    titlePanel("Setting and Phenomena Type"),
+    sidebarLayout(
+      sidebarPanel(
+        h3("Setting Percentage Comparison"),
+        p("Compare the % of each phenomena type in each setting.")
+      ),
+      mainPanel(
+        plotOutput("phenomenatype_setting")
+      )
+    )
   )
 )
