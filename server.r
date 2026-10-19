@@ -12,7 +12,7 @@ haunted_places <- read.csv("haunted_places_clean.csv")
 
 
 # Plot of Haunted Places by Entity Type
-
+function(input, output){
   output$hauntedBarChart <- renderPlot({
     
     haunted_places_clean %>%
