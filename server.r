@@ -29,7 +29,12 @@ haunted_places <- read.csv("haunted_places_clean.csv")
   })
 
   
-
+# Plot of Phenomena Type by Setting
+  
+  
+  
+  
+  
 #setting vs state pie chart
 
   output$pie <- renderPlot({
