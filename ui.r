@@ -32,5 +32,21 @@ haunted_places <- read.csv("haunted_places_clean.csv")
         mainPanel(
           plotOutput("pie")
           )
-        )
+    ),
+
+titlePanel("Count by Century"),
+sidebarLayout(
+  sidebarPanel(
+    selectInput(
+      inputId = "century",
+      label = "Century:",
+      choices = c("All Centuries", sort(unique(by_century$century))),
+      selected = "All Centuries"
+    )
+  ),
+  mainPanel(
+    plotOutput("XYZ")
+  )
+)
+
       )

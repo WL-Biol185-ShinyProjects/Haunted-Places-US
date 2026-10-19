@@ -10,6 +10,10 @@ library(ggpie)
 
 haunted_places <- read.csv("haunted_places_clean.csv")
 
+by_century <- haunted_places %>%
+  filter(!is.na(year), year >= 1700) %>%
+  mutate(century = paste0(floor(year/100) * 100, "s"))
+
 
 # Plot of Haunted Places by Entity Type
 function(input, output){
@@ -46,4 +50,17 @@ ggpie(haunted_places %>%
     border_size  = 1
     )  
   })
+  
+  
+  output$century_bar <- renderPlot({
+    if(input$century == "All Centuries"){
+      ggplot(
+        by_century %>% filter(input$century == "All Centuries" | century == input$century), 
+        aes(century)) + geom_bar()
+    } else{
+      ggplot(by_century %>% filter(century == input$century), 
+             aes(fct_infreq("setting"))
+      ) + geom_bar()
+    }
+    })
 }
