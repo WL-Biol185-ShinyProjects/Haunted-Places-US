@@ -19,7 +19,7 @@ ui <- navbarPage(
     "Data Overview",
     h1("Haunted Places by State"),
     p("Compare the number of haunted places recorded in each state."),
-    plotOutput("hauntedBarChart"),
+    
     selectInput(
       inputId = "state",
       label = "Filter by State:",
@@ -28,8 +28,11 @@ ui <- navbarPage(
         sort(unique(haunted_places_clean$state))
       ),
       selected = "All"
-    )
-    # plotOutput("pie")
+    ),
+    plotOutput("hauntedBarChart"),
+    h2("Haunted Places by Entity Type"),
+    p("See the distribution of haunted places by entity type."),
+    plotOutput("pie")
   ),
   
   # Page 3: Haunting Finder
