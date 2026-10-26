@@ -3,6 +3,10 @@ library(ggplot2)
 
 haunted_places <- read.csv("haunted_places_clean.csv")
 
+by_century <- haunted_places %>%
+  filter(!is.na(year), year >= 1700) %>%
+  mutate(century = paste0(floor(year/100) * 100, "s"))
+
 ui <- navbarPage(
   title = "Haunted Places Explorer",
   
@@ -13,6 +17,22 @@ ui <- navbarPage(
     p("Explore haunted places across the United States."),
     p("This interactive dashboard lets you investigate haunted locations, compare states, and discover regional patterns.")
   ),
+  
+  h2("Count By Century"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput(
+        inputId = "century",
+        label = "Century:",
+        choices = c("All Centuries", sort(unique(by_century$century))),
+        selected = "All Centuries"
+      )
+    ),
+    mainPanel(
+      plotOutput("century_bar")
+    )
+  ),
+  
   
   # Page 2: Data Overview
   tabPanel(
