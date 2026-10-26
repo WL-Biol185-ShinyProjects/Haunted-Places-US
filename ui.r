@@ -1,19 +1,48 @@
-#reserves spot on website page for the elements
-
 library(shiny)
 library(ggplot2)
 
 haunted_places <- read.csv("haunted_places_clean.csv")
 
-
-    fluidPage(
-    titlePanel("Haunted Places by State"),
+ui <- navbarPage(
+  title = "Haunted Places Explorer",
+  
+  # Page 1: Introduction
+  tabPanel(
+    "Introduction",
+    h1("Welcome to the Haunted Places Explorer"),
+    p("Explore haunted places across the United States."),
+    p("This interactive dashboard lets you investigate haunted locations, compare states, and discover regional patterns.")
+  ),
+  
+  # Page 2: Data Overview
+  tabPanel(
+    "Data Overview",
+    h1("Haunted Places by State"),
+    p("Compare the number of haunted places recorded in each state."),
+    plotOutput("hauntedBarChart")
+    # plotOutput("pie")
+  ),
+  
+  # Page 3: Haunting Finder
+  tabPanel(
+    "Haunting Finder",
+    h1("Find Haunted Places by U.S. City"),
+    p("Filter to a state and type in your city to find haunted places close by!")
+  ),
+  
+  # Page 4: Regions
+  tabPanel(
+    "Regions",
+    h1("Explore Haunted History by Region"),
+    p("Compare haunted history across different regions of the United States."),
+    titlePanel("Setting and Phenomena Type"),
     sidebarLayout(
       sidebarPanel(
-        h3("State Comparison"),
-        p("Compare the number of haunted places recorded in each state.")
+        h3("Setting Percentage Comparison"),
+        p("Compare the % of each phenomena type in each setting.")
       ),
       mainPanel(
+
         plotOutput("hauntedBarChart")
       )
     ),
@@ -45,8 +74,6 @@ sidebarLayout(
     )
   ),
   mainPanel(
-    plotOutput("XYZ")
+    plotOutput("century_bar")
   )
 )
-
-      )
