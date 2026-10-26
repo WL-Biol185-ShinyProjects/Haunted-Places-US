@@ -45,7 +45,7 @@ function(input, output){
   # Plot of Phenomena Type by Setting
     
     
-    output$hauntedBarChart <- renderPlot({
+    output$divisionBarChart <- renderPlot({
       
       ggplot(
         haunted_places,

@@ -15,10 +15,10 @@ ui <- navbarPage(
     "Introduction",
     h1("Welcome to the Haunted Places Explorer"),
     p("Explore haunted places across the United States."),
-    p("This interactive dashboard lets you investigate haunted locations, compare states, and discover regional patterns.")
-  ),
+    p("This interactive dashboard lets you investigate haunted locations, compare states, and discover regional patterns."),
   
-  h2("Count By Century"),
+  
+  h1("Count By Century"),
   sidebarLayout(
     sidebarPanel(
       selectInput(
@@ -30,7 +30,8 @@ ui <- navbarPage(
     ),
     mainPanel(
       plotOutput("century_bar")
-    )
+  )
+  ),
   ),
   
   
@@ -45,7 +46,7 @@ ui <- navbarPage(
       label = "Filter by State:",
       choices = c(
         "All States" = "All",
-        sort(unique(haunted_places_clean$state))
+        sort(unique(haunted_places$state))
       ),
       selected = "All"
     ),
@@ -75,7 +76,7 @@ ui <- navbarPage(
       ),
       
       mainPanel(
-        plotOutput("hauntedBarChart", height = "500px")
+        plotOutput("divisionBarChart", height = "500px")
       )
     )
   )
