@@ -42,11 +42,11 @@ ui <- navbarPage(
     p("Filter to a state and type in your city to find haunted places close by!")
   ),
   
-  # Page 4: Regions
+  # Page 4: Division
   tabPanel(
-    "Regions",
-    h1("Explore Haunted History by Region"),
-    p("Compare haunted history across different regions of the United States."),
+    "Division",
+    h1("Explore Haunted History by Division"),
+    p("Compare haunted history across different divisions of the United States."),
     titlePanel("Setting and Phenomena Type"),
     sidebarLayout(
       sidebarPanel(
