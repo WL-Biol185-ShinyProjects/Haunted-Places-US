@@ -61,7 +61,19 @@ function(input, output){
           y = "Total Number of Hauntings",
           fill = "Census Division"
         ) +
-        scale_fill_brewer(palette = "Set2") +
+        scale_fill_manual(
+          values = c(
+            "New England" = "#6A3D9A",
+            "Middle Atlantic" = "#1F78B4",
+            "East North Central" = "#33A02C",
+            "West North Central" = "#B2DF8A",
+            "South Atlantic" = "#E31A1C",
+            "East South Central" = "#FF7F00",
+            "West South Central" = "#FDBF6F",
+            "Mountain" = "#A6CEE3",
+            "Pacific" = "#B15928"
+          )
+        ) +
         theme_minimal() +
         theme(
           plot.title = element_text(
