@@ -79,3 +79,4 @@ ui <- navbarPage(
       )
     )
   )
+)

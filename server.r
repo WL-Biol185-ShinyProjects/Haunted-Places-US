@@ -105,7 +105,7 @@ function(input, output){
         aes(century)) + geom_bar()
    } else{
       ggplot(by_century %>% filter(century == input$century), 
-             aes(fct_infreq("setting"))
+             aes(fct_infreq(setting))
       ) + geom_bar()}
   })
   
