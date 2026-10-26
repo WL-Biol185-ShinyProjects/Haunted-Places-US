@@ -1,5 +1,4 @@
 #Render plot code that draws the plot
-
 library(shiny)
 library(ggplot2)
 library(tidyverse)
@@ -8,14 +7,18 @@ remotes::install_github("showteeth/ggpie")
 #^^^this runs every single time the app is created, should probably put this somewhere else
 library(ggpie)
 
+
+#Access the data set
 haunted_places <- read.csv("haunted_places_clean.csv")
 
+
+#Create centuries
 by_century <- haunted_places %>%
   filter(!is.na(year), year >= 1700) %>%
   mutate(century = paste0(floor(year/100) * 100, "s"))
 
 
-# Plot of Haunted Places by Entity Type
+# Bar chart of Haunted Places by Entity Type
 function(input, output){
   output$hauntedBarChart <- renderPlot({
     
@@ -42,7 +45,7 @@ function(input, output){
   })
   
   
-  # Plot of Phenomena Type by Setting
+# Bar chart of Phenomena Type by Setting
     
     
     output$divisionBarChart <- renderPlot({
@@ -88,9 +91,7 @@ function(input, output){
     })
     
   
-  
-  
-  #setting vs state pie chart
+#Pie chart of setting vs state
   
   output$pie <- renderPlot({
     ggpie(haunted_places %>%

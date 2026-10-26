@@ -10,13 +10,12 @@ by_century <- haunted_places %>%
 ui <- navbarPage(
   title = "Haunted Places Explorer",
   
-  # Page 1: Introduction
+# Page 1: Introduction
   tabPanel(
     "Introduction",
     h1("Welcome to the Haunted Places Explorer"),
     p("Explore haunted places across the United States."),
     p("This interactive dashboard lets you investigate haunted locations, compare states, and discover regional patterns."),
-  
   
   h1("Count By Century"),
   sidebarLayout(
@@ -28,42 +27,44 @@ ui <- navbarPage(
         selected = "All Centuries"
       )
     ),
+    
     mainPanel(
       plotOutput("century_bar")
-  )
-  ),
+    )
+    ),
   ),
   
   
-  # Page 2: Data Overview
+# Page 2: Data Overview
   tabPanel(
     "Data Overview",
-    h1("Haunted Places by State"),
-    p("Compare the number of haunted places recorded in each state."),
+      h1("Haunted Places by State"),
+      p("Compare the number of haunted places recorded in each state."),
     
-    selectInput(
-      inputId = "state",
-      label = "Filter by State:",
-      choices = c(
-        "All States" = "All",
-        sort(unique(haunted_places$state))
+      selectInput(
+        inputId = "state",
+        label = "Filter by State:",
+        choices = c(
+          "All States" = "All",
+          sort(unique(haunted_places$state))
+        ),
+        selected = "All"
       ),
-      selected = "All"
-    ),
     plotOutput("hauntedBarChart"),
+    
     h2("Haunted Places by Entity Type"),
     p("See the distribution of haunted places by entity type."),
     plotOutput("pie")
   ),
   
-  # Page 3: Haunting Finder
+# Page 3: Haunting Finder
   tabPanel(
     "Haunting Finder",
     h1("Find Haunted Places by U.S. City"),
     p("Filter to a state and type in your city to find haunted places close by!")
   ),
   
-  # Page 4: Division
+# Page 4: Division
   tabPanel(
     "Divisions",
     h1("Explore Haunted History by Division"),
