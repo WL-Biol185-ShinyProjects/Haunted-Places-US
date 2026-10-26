@@ -43,32 +43,38 @@ function(input, output){
   
   
   # Plot of Phenomena Type by Setting
-  
-  
-  output$phenomenatype_setting <- renderPlot({
     
-    haunted_places_clean %>%
-      filter(phenomena_type != "unspecified") %>%
-      mutate(phenomena_type = fct_infreq(phenomena_type)) %>%
-      ggplot(aes(x = phenomena_type)) +
-      geom_bar(fill = "#1F4E79") +
-      labs(
-        title = "Haunted Places by Phenomena Type",
-        x = "Phenomena Type (If Specified)",
-        y = "Number of Places"
-      ) +
-      theme(
-        axis.text.x = element_text(
-          angle = 45,
-          hjust = 1
+    
+    output$hauntedBarChart <- renderPlot({
+      
+      ggplot(
+        haunted_places,
+        aes(
+          x = phenomena_type,
+          fill = division
         )
-      )
+      ) +
+        geom_bar(position = "stack") +
+        labs(
+          title = "Haunted Places by Phenomenon Type and Division",
+          x = "Phenomenon Type",
+          y = "Total Number of Hauntings",
+          fill = "Census Division"
+        ) +
+        scale_fill_brewer(palette = "Set2") +
+        theme_minimal() +
+        theme(
+          plot.title = element_text(
+            face = "bold",
+            size = 15
+          ),
+          axis.text.x = element_text(
+            angle = 30,
+            hjust = 1
+          )
+        )
+    })
     
-  })
-  
-  
-  
-  
   
   
   
