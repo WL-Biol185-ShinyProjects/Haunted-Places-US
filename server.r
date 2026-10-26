@@ -20,7 +20,10 @@ function(input, output){
   output$hauntedBarChart <- renderPlot({
     
     haunted_places_clean %>%
-      filter(entity_type != "unspecified") %>%
+      filter(
+        entity_type != "unspecified",
+        input$state == "All" | state == input$state
+      ) %>%
       mutate(entity_type = fct_infreq(entity_type)) %>%
       ggplot(aes(x = entity_type)) +
       geom_bar(fill = "darkred") +
@@ -29,7 +32,13 @@ function(input, output){
         x = "Entity Type (If Specified)",
         y = "Number of Places"
       ) +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+      theme(
+        axis.text.x = element_text(
+          angle = 45,
+          hjust = 1
+        )
+      )
+    
   })
 
   

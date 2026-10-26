@@ -19,7 +19,16 @@ ui <- navbarPage(
     "Data Overview",
     h1("Haunted Places by State"),
     p("Compare the number of haunted places recorded in each state."),
-    plotOutput("hauntedBarChart")
+    plotOutput("hauntedBarChart"),
+    selectInput(
+      inputId = "state",
+      label = "Filter by State:",
+      choices = c(
+        "All States" = "All",
+        sort(unique(haunted_places_clean$state))
+      ),
+      selected = "All"
+    )
     # plotOutput("pie")
   ),
   
