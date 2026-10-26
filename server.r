@@ -76,7 +76,9 @@ function(input, output){
 
   output$pie <- renderPlot({
 ggpie(haunted_places %>%
-      filter(input$state == "All States" | state == input$state), 
+      filter(
+        entity_type != "unspecified",
+        input$state == "All" | state == input$state), 
     group_key = "setting",
     count_type  = "full",
     label_info  = "ratio",
