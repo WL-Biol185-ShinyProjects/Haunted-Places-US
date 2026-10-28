@@ -1,7 +1,9 @@
 library(shiny)
 library(ggplot2)
+library(leaflet)
+library(tidyverse)
 
-haunted_places <- read.csv("haunted_places_clean.csv")
+haunted_places <- read.csv("haunted_places.csv")
 
 by_century <- haunted_places %>%
   filter(!is.na(year), year >= 1700) %>%
@@ -16,23 +18,13 @@ ui <- navbarPage(
     h1("Welcome to the Haunted Places Explorer"),
     p("Explore haunted places across the United States."),
     p("This interactive dashboard lets you investigate haunted locations, compare states, and discover regional patterns."),
-  
-  h1("Count By Century"),
-  sidebarLayout(
-    sidebarPanel(
-      selectInput(
-        inputId = "century",
-        label = "Century:",
-        choices = c("All Centuries", sort(unique(by_century$century))),
-        selected = "All Centuries"
-      )
-    ),
+ 
     
-    mainPanel(
-      plotOutput("century_bar")
-    )
+    h2("Map of Hauntings"),
+    leafletOutput("leaflet"), 
     ),
-  ),
+
+ 
   
   
 # Page 2: Data Overview
@@ -54,7 +46,22 @@ ui <- navbarPage(
     
     h2("Haunted Places by Entity Type"),
     p("See the distribution of haunted places by entity type."),
-    plotOutput("pie")
+    plotOutput("pie"),
+    
+    h3("Count By Century"),
+    sidebarLayout(
+      sidebarPanel(
+        selectInput(
+          inputId = "century",
+          label = "Century:",
+          choices = c("All Centuries", sort(unique(by_century$century))),
+          selected = "All Centuries"
+        )
+      ),
+      mainPanel(
+        plotOutput("century_bar")
+      )
+    )
   ),
   
 # Page 3: Haunting Finder
@@ -81,4 +88,5 @@ ui <- navbarPage(
       )
     )
   )
+
 )
