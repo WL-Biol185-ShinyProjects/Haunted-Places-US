@@ -1,5 +1,6 @@
 library(shiny)
 library(ggplot2)
+library(tidyverse)
 
 haunted_places <- read.csv("haunted_places_clean.csv")
 
