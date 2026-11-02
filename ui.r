@@ -22,10 +22,10 @@ ui <- navbarPage(
  
     
     h2("Map of Hauntings"),
-    leafletOutput("leaflet"), 
+    leafletOutput("hauntingMap"), 
     
     h3("Heat Map"),
-    leafletOutput("heatmap")
+    leafletOutput("heatmap")       #works, but is too big for the webpage. need to do dropdown to switch between
     
     ),
 
