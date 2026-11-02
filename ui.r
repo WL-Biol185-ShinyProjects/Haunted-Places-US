@@ -74,19 +74,23 @@ ui <- navbarPage(
   tabPanel(
     "Haunting Finder",
     h1("Find Haunted Places by U.S. City"),
-    p("Filter to a state and type in your city to find haunted places close by!")
+    p("Filter to a state and type in your city to find haunted places close by!"),
+    selectInput("finder_state", "State:",
+                choices = c("Select a state" = "", sort(unique(haunted_places$state)))),
+    selectInput("finder_city", "City:", choices = NULL),
+    uiOutput("finder_results")
   ),
   
 # Page 4: Division
   tabPanel(
-    "Divisions",
-    h1("Explore Haunted History by Division"),
-    p("Compare the four phenomenon types across U.S. Census divisions."),
+    "Places by Region",
+    h1("Explore Haunted History by Region"),
+    p("Compare the four phenomenon types across U.S. Census regions"),
     
     sidebarLayout(
       sidebarPanel(
-        h3("Phenomenon by Division"),
-        p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census division.")
+        h3("Phenomenon by Region"),
+        p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census region")
       ),
       
       mainPanel(
@@ -96,3 +100,4 @@ ui <- navbarPage(
   )
 
 )
+
