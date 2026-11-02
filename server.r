@@ -129,7 +129,9 @@ function(input, output){
 #leaflet map
   output$leaflet <- renderLeaflet({
   
-  leaflet(data = haunted_places) %>% addTiles() %>% addMarkers(popup = ~paste0("Location: ", location, "<br/>", "<br/>", "Description:", "<br/>", description), clusterOptions = markerClusterOptions())
+  leaflet(data = haunted_places) %>% 
+      addTiles() %>% 
+      addMarkers(popup = ~paste0("Location: ", location, "<br/>", "<br/>", "Description:", "<br/>", description), clusterOptions = markerClusterOptions())
   
 })
     
