@@ -49,6 +49,7 @@ ui <- navbarPage(
     plotOutput("pie"),
     
     h3("Count By Century"),
+    p("See the concentration by century and drop down into types of hauntings by century"),
     sidebarLayout(
       sidebarPanel(
         selectInput(
