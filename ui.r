@@ -1,6 +1,7 @@
 library(shiny)
 library(ggplot2)
 library(leaflet)
+library(leaflet.extras)
 library(tidyverse)
 
 haunted_places <- read.csv("haunted_places.csv")
@@ -22,6 +23,10 @@ ui <- navbarPage(
     
     h2("Map of Hauntings"),
     leafletOutput("leaflet"), 
+    
+    h3("Heat Map"),
+    leafletOutput("heatmap")
+    
     ),
 
  

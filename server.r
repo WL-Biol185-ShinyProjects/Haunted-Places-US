@@ -2,11 +2,9 @@
 library(shiny)
 library(ggplot2)
 library(tidyverse)
-install.packages("remotes")
-remotes::install_github("showteeth/ggpie")
-#^^^this runs every single time the app is created, should probably put this somewhere else
 library(ggpie)
 library(leaflet)
+library(leaflet.extras)
 
 
 #Access the data set
@@ -135,4 +133,39 @@ function(input, output){
   
 })
     
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  #heat map
+  output$heatmap <- renderLeaflet({
+    
+    leaflet(data = haunted_places) %>% 
+      addTiles() %>% 
+      addHeatmap(
+        lng = ~longitude,
+        lat = ~latitude,
+        blur = 25,      # how smooth/spread out the heat is
+        max = 0.05,     # intensity ceiling
+        radius = 17    # size of each point's influence
+      )
+  })
+  
 }  
