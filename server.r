@@ -20,7 +20,7 @@ by_century <- haunted_places %>%
 
 
 # Bar chart of Haunted Places by Entity Type
-function(input, output){
+function(input, output, session){
   output$hauntedBarChart <- renderPlot({
     
     haunted_places %>%
@@ -132,7 +132,24 @@ function(input, output){
   leaflet(data = haunted_places) %>% 
       addTiles() %>% 
       addMarkers(popup = ~paste0("Location: ", location, "<br/>", "<br/>", "Description:", "<br/>", description), clusterOptions = markerClusterOptions())
-  
 })
-    
+  
+# dropdown selection
+  observeEvent(input$finder_state, {
+    req(input$finder_state)
+    cities <- sort(unique(haunted_places$city[haunted_places$state == input$finder_state]))
+    updateSelectInput(session, "finder_city", choices = cities)
+  })
+  
+  output$finder_results <- renderUI({
+    req(input$finder_state, input$finder_city)
+    d <- haunted_places[haunted_places$state == input$finder_state &
+                        haunted_places$city == input$finder_city,  ]
+    tagList(
+      h3(nrow(d), "haunted places in", input$finder_city),
+      tags$ul(lapply(d$description, tags$li))
+    )
+  })
+  
+  
 }  
