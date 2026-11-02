@@ -6,10 +6,11 @@ install.packages("remotes")
 remotes::install_github("showteeth/ggpie")
 #^^^this runs every single time the app is created, should probably put this somewhere else
 library(ggpie)
+library(leaflet)
 
 
 #Access the data set
-haunted_places <- read.csv("haunted_places_clean.csv")
+haunted_places <- read.csv("haunted_places.csv")
 
 
 #Create centuries
@@ -22,7 +23,7 @@ by_century <- haunted_places %>%
 function(input, output){
   output$hauntedBarChart <- renderPlot({
     
-    haunted_places_clean %>%
+    haunted_places %>%
       filter(
         entity_type != "unspecified",
         input$state == "All" | state == input$state
@@ -122,5 +123,14 @@ function(input, output){
       ) + geom_bar()}
   })
   
-}
+
+
+
+#leaflet map
+  output$leaflet <- renderLeaflet({
+  
+  leaflet(data = haunted_places) %>% addTiles() %>% addMarkers(popup = ~paste0("Location: ", location, "<br/>", "<br/>", "Description:", "<br/>", description), clusterOptions = markerClusterOptions())
+  
+})
     
+}  
