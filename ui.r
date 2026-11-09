@@ -77,16 +77,16 @@ ui <- navbarPage(
 
 
 
-# Page 3: Do Regions have concentrations?
+# Page 3: Do Divisions have concentrations?
   tabPanel(
-    "Do Regions have Concentrations?",
-    h1("Explore Haunted History by Region"),
-    p("Compare the four phenomenon types across U.S. Census regions"),
+    "Do Divisions have Concentrations?",
+    h1("Explore Haunted History by Division"),
+    p("Compare the four phenomenon types across U.S. Divisions"),
     
     sidebarLayout(
       sidebarPanel(
-        h3("Phenomenon by Region"),
-        p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census region")
+        h3("Phenomenon by Division"),
+        p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census division")
       ),
 
       selectInput(
