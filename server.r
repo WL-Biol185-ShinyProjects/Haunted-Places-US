@@ -198,4 +198,52 @@ function(input, output, session){
       ) +
       theme_minimal()
   })
-}
+
+  
+  #chloropleth map
+  output$chloropleth <- renderLeaflet({
+    states_sf <- sf::read_sf("https://rstudio.github.io/leaflet/json/us-states.geojson")
+    
+    state_count <- haunted_places %>%
+      group_by(state) %>%
+      summarize(n_rows = n())
+    
+    map_data <- states_sf %>%
+      left_join(state_count, by = c("name" = "state")) %>%
+      mutate(n_rows = coalesce(n_rows, 0L))
+    
+    labels <- sprintf(
+      "<strong>%s</strong><br/>%d haunted places",
+      map_data$name, map_data$n_rows
+    ) %>% lapply(htmltools::HTML)
+    
+    bins <- c(0, 100, 200, 300, 500, 700, 1000, Inf)
+    pal <- colorBin("YlOrRd", domain = map_data$n_rows, bins = bins)
+    
+    leaflet(map_data) %>%
+      setView(-96, 37.8, 4) %>%
+      addProviderTiles(providers$CartoDB.Positron) %>%
+      addPolygons(
+        fillColor = ~pal(n_rows),
+        weight = 2,
+        opacity = 1,
+        color = "white",
+        dashArray = "3",
+        fillOpacity = 0.7,
+        highlightOptions = highlightOptions(
+          weight = 5,
+          color = "#666",
+          dashArray = "",
+          fillOpacity = 0.7,
+          bringToFront = TRUE),
+        label = labels,
+        labelOptions = labelOptions(
+          style = list("font-weight" = "normal", padding = "3px 8px"),
+          textsize = "15px",
+          direction = "auto")) %>%
+      addLegend(pal = pal, values = ~n_rows, opacity = 0.7, title = NULL,
+                position = "bottomright")
+  
+  })
+  
+  }

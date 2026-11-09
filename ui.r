@@ -83,6 +83,9 @@ ui <- navbarPage(
     
   #setting by division
       #chloropleth map of the divisions, colored by count of hauntings
+  h1("Concentration Map"),
+  leafletOutput("chloropleth")
+  
   ),
 
 
