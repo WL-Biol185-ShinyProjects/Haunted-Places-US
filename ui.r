@@ -20,12 +20,16 @@ ui <- navbarPage(
     p("Explore haunted places across the United States."),
     p("This interactive dashboard lets you investigate haunted locations, compare states, and discover regional patterns."),
  
-    
+       
     h2("Map of Hauntings"),
+    selectInput(
+      inputId = "map_type",
+      label = "Select Map Style",
+      choices = c("Heat Map" ="heat", 
+                  "Individual Markers" = "markers"),
+      selected = "heat"
+    ),
     leafletOutput("hauntingMap"), 
-    
-    h3("Heat Map"),
-    leafletOutput("heatmap")       #works, but is too big for the webpage. need to do dropdown to switch between
     
     ),
 

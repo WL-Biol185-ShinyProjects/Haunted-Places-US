@@ -125,29 +125,36 @@ function(input, output, session){
 
 
 #leaflet map
+  #marker map
   output$hauntingMap <- renderLeaflet({
   
+    if(input$map_type == "markers") {
   leaflet(data = haunted_places) %>% 
+      setView(lng = -96, lat = 37.8, zoom = 4) %>%
       addTiles() %>% 
       addMarkers(popup = ~paste0("Location: ", location, "<br/>", "<br/>", "Description:", "<br/>", description), clusterOptions = markerClusterOptions())
-})
+    }
+    
+    else {
 
-  
   #heat map
-  output$heatmap <- renderLeaflet({
     
     leaflet(data = haunted_places) %>% 
       addTiles() %>% 
       setView(lng = -96, lat = 37.8, zoom = 4) %>%
       addHeatmap(
+        data = haunted_places %>%
+          filter(!is.na(longitude), !is.na(latitude)),
         lng = ~longitude,
         lat = ~latitude,
-        blur = 25,      # how smooth/spread out the heat is
-        max = 0.05,     # intensity ceiling
-        radius = 17    # size of each point's influence
-      )
-  })
-  
+        blur = 10,      # how smooth/spread out the heat is
+        max = .05,     # intensity ceiling
+        radius = 10,    # size of each point's influence
+        intensity = 10,
+        scaleIntensity = TRUE
+        )
+  }
+})
   
 # dropdown selection
   observeEvent(input$finder_state, {
