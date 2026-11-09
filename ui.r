@@ -90,12 +90,6 @@ dashboardBody(
           )
   ),
   
-<<<<<<< HEAD
-  mainPanel(
-    plotOutput("divisionBarChart", click="plotClick", height = "500px"),
-    textOutput("clickDetail"),
-    uiOutput("finder_results")
-=======
   
   #Page 3: Do regions have concentrations?
   tabItem(tabName = "DivisionBarChart",
@@ -136,7 +130,7 @@ dashboardBody(
               plotOutput("divisionBarChart")
           )
           # phenomena by division plot goes here
->>>>>>> 532272c60459cfbc54086a83fe4a00c4c5d3bfda
+
   )
   ),
   
