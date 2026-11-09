@@ -168,7 +168,7 @@ function(input, output, session){
     d <- haunted_places[haunted_places$state == input$finder_state &
                         haunted_places$city == input$finder_city,  ]
     tagList(
-      h3(nrow(d), "haunted places in", input$finder_city),
+      h3(nrow(d), ifelse(nrow(d) == 1, "haunted place in", "haunted places in"), input$finder_city),
       tags$ul(lapply(seq_len(nrow(d)), function(i) {
         tags$li(
           tags$b(d$location[i]),
