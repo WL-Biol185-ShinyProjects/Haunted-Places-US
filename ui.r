@@ -15,7 +15,7 @@ ui <- navbarPage(
   
 # Page 1: Introduction
   tabPanel(
-    "Introduction",
+    "Where is America Haunted?",
     h1("Welcome to the Haunted Places Explorer"),
     p("Explore haunted places across the United States."),
     p("This interactive dashboard lets you investigate haunted locations, compare states, and discover regional patterns."),
@@ -38,7 +38,7 @@ ui <- navbarPage(
   
 # Page 2: Data Overview
   tabPanel(
-    "Data Overview",
+    "What Kinds of Places are Haunted?",
       h1("Haunted Places by State"),
       p("Compare the number of haunted places recorded in each state."),
     
