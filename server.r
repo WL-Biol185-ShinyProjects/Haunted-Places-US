@@ -181,8 +181,9 @@ function(input, output, session){
   })
   
   
-  # Division dropdown selection
+  # Division dropdown selection and bar click feature with corresponding text
   output$divisionBarChart <- renderPlot({
+
     
     req(input$finder_division)
     
@@ -197,5 +198,10 @@ function(input, output, session){
         y = "Number of Haunted Places"
       ) +
       theme_minimal()
+  })
+  output$clickDetail <- renderText({
+    input$plotClick
+    row=nearPoints(haunted_places,input$plotClick)
+    "Hey here is the text"
   })
 }

@@ -107,7 +107,8 @@ tabPanel(
   ),
   
   mainPanel(
-    plotOutput("divisionBarChart", height = "500px"),
+    plotOutput("divisionBarChart", click="plotClick", height = "500px"),
+    textOutput("clickDetail"),
     uiOutput("finder_results")
   )
 ),
