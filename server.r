@@ -125,7 +125,7 @@ function(input, output, session){
 
 
 #leaflet map
-  output$leaflet <- renderLeaflet({
+  output$hauntingMap <- renderLeaflet({
   
   leaflet(data = haunted_places) %>% 
       addTiles() %>% 
@@ -138,6 +138,7 @@ function(input, output, session){
     
     leaflet(data = haunted_places) %>% 
       addTiles() %>% 
+      setView(lng = -96, lat = 37.8, zoom = 4) %>%
       addHeatmap(
         lng = ~longitude,
         lat = ~latitude,
