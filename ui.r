@@ -74,6 +74,9 @@ ui <- navbarPage(
     )
   ),
   
+
+
+
 # Page 3: Haunting Finder
   tabPanel(
     "Haunting Finder",
@@ -85,6 +88,9 @@ ui <- navbarPage(
     uiOutput("finder_results")
   ),
   
+
+
+
 # Page 4: Division
   tabPanel(
     "Places by Region",
