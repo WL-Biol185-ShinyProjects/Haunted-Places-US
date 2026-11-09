@@ -161,7 +161,14 @@ function(input, output, session){
                         haunted_places$city == input$finder_city,  ]
     tagList(
       h3(nrow(d), "haunted places in", input$finder_city),
-      tags$ul(lapply(d$description, tags$li))
+      tags$ul(lapply(seq_len(nrow(d)), function(i) {
+        tags$li(
+          tags$b(d$location[i]),
+          if (!is.na(d$year[i])) paste0(" (", d$year[i], ")"),
+          tags$br(),
+          d$description[i]
+        )
+      }))
     )
   })
   
