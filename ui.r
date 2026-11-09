@@ -92,22 +92,29 @@ ui <- navbarPage(
 
 
 # Page 4: Division
-  tabPanel(
-    "Places by Region",
-    h1("Explore Haunted History by Region"),
-    p("Compare the four phenomenon types across U.S. Census regions"),
-    
-    sidebarLayout(
-      sidebarPanel(
-        h3("Phenomenon by Region"),
-        p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census region")
-      ),
+tabPanel(
+  "Places by Region",
+  h1("Explore Haunted History by Region"),
+  p("Compare the four phenomenon types across U.S. Census regions"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      h3("Phenomenon by Region"),
+      p("Select a division to explore haunted places within that region."),
       
-      mainPanel(
-        plotOutput("divisionBarChart", height = "500px")
+      selectInput(
+        "finder_division",
+        "Select a Division:",
+        choices = sort(unique(haunted_places$division))
       )
+    ),
+    
+    mainPanel(
+      plotOutput("divisionBarChart", height = "500px"),
+      uiOutput("finder_results")
     )
   )
+)
 
 )
 

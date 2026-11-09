@@ -181,4 +181,21 @@ function(input, output, session){
   })
   
   
-}  
+  # Division dropdown selection
+  output$divisionBarChart <- renderPlot({
+    
+    req(input$finder_division)
+    
+    d <- haunted_places %>%
+      filter(division == input$finder_division)
+    
+    ggplot(d, aes(x = `phenomena_type`)) +
+      geom_bar(fill = "steelblue") +
+      labs(
+        title = paste("Phenomena Types in", input$finder_division),
+        x = "Phenomena Type",
+        y = "Number of Haunted Places"
+      ) +
+      theme_minimal()
+  })
+}
