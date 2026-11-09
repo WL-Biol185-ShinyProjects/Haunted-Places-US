@@ -80,34 +80,36 @@ ui <- navbarPage(
 # Page 3: Do Divisions have concentrations?
   tabPanel(
     "Do Divisions have Concentrations?",
-    h1("Explore Haunted History by Division"),
-    p("Compare the four phenomenon types across U.S. Divisions"),
     
-    sidebarLayout(
-      sidebarPanel(
-        h3("Phenomenon by Division"),
-        p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census division")
-      ),
-
-      selectInput(
-        "finder_division",
-        "Select a Division:",
-        choices = sort(unique(haunted_places$division))
-      )
-    ),
-    
-    mainPanel(
-      plotOutput("divisionBarChart", height = "500px"),
-      uiOutput("finder_results")
-    )
-
+  #setting by division
+      #chloropleth map of the divisions, colored by count of hauntings
   ),
 
-#Page 4: Types of phenomena by region
+
+#Page 4: Types of phenomena by Division
 tabPanel(
-  "Types of Phenomena by Region"
+  "Types of Phenomena by Division",
   
-  #phenomena by division
+  h1("Explore Haunted History by Division"),
+  p("Compare the four phenomenon types across U.S. Divisions"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      h3("Phenomenon by Division"),
+      p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census division")
+    ),
+    
+    selectInput(
+      "finder_division",
+      "Select a Division:",
+      choices = sort(unique(haunted_places$division))
+    )
+  ),
+  
+  mainPanel(
+    plotOutput("divisionBarChart", height = "500px"),
+    uiOutput("finder_results")
+  )
 ),
 
 
