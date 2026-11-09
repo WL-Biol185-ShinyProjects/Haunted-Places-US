@@ -46,8 +46,7 @@ dashboardBody(
                 leafletOutput("hauntingMap")
               )
             )
-    )
-  ),
+    ),
   
   #Page 2: What kinds of places are haunted?
   tabItem(tabName = "TotalbySetting",
@@ -91,6 +90,7 @@ dashboardBody(
           )
   ),
   
+  
   #Page 3: Do regions have concentrations?
   tabItem(tabName = "DivisionBarChart",
           h1("Explore Haunted History by Region"),
@@ -104,14 +104,44 @@ dashboardBody(
               width = 8,
               plotOutput("divisionBarChart", height = "500px")
             )
+          #setting by division
+          #choropleth map of the divisions, colored by count of hauntings 
           )
   ),
   
+  
   #Page 4: Types of phenomena by region
   tabItem(tabName = "GroupbyRegion",
-          h1("Types of Phenomena by Region")
+          h1("Types of Phenomena by Region"),
+          p("Compare the four phenomena types across U.S. Divisions"),
+          fluidRow(
+            box(
+              title = "Count By Century", width = 4, solidHeader = TRUE,
+              p("See the concentration by century and drop down into types of hauntings by century."),
+              selectInput(
+                inputId = "finder_division",
+                label = "Select a Division",
+                choices = c("All Divisions", sort(unique(haunted_places$division))),
+                selected = "All Divisions"
+              )
+            ),
+            box(
+              height = "500px",
+              plotOutput("divisionBarChart")
+          )
           # phenomena by division plot goes here
+  )
   ),
+  
+
+  #  sidebarLayout(
+  #    sidebarPanel(
+  #      h3("Phenomenon by Division"),
+  #      p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census division")
+  #    ),
+  
+  
+  
   
   
   #Page 5: How haunted is your area?
@@ -132,6 +162,7 @@ dashboardBody(
             )
           )
   )
+)
 )
 )
 
