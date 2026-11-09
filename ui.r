@@ -90,8 +90,8 @@ ui <- navbarPage(
 tabPanel(
   "Types of Phenomena by Division",
   
-  h1("Explore Haunted History by Division"),
-  p("Compare the four phenomenon types across U.S. Divisions"),
+  h1("Explore Phenomena Type by Division"),
+  p("Compare the four phenomena types across U.S. Divisions"),
   
   sidebarLayout(
     sidebarPanel(
