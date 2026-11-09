@@ -13,7 +13,7 @@ by_century <- haunted_places %>%
 ui <- navbarPage(
   title = "Haunted Places Explorer",
   
-# Page 1: Introduction
+# Page 1: Where is America haunted?
   tabPanel(
     "Where is America Haunted?",
     h1("Welcome to the Haunted Places Explorer"),
@@ -36,7 +36,7 @@ ui <- navbarPage(
  
   
   
-# Page 2: Data Overview
+# Page 2: What kinds of places are haunted?
   tabPanel(
     "What Kinds of Places are Haunted?",
       h1("Haunted Places by State"),
@@ -77,23 +77,9 @@ ui <- navbarPage(
 
 
 
-# Page 3: Haunting Finder
+# Page 3: Do Regions have concentrations?
   tabPanel(
-    "Haunting Finder",
-    h1("Find Haunted Places by U.S. City"),
-    p("Filter to a state and type in your city to find haunted places close by!"),
-    selectInput("finder_state", "State:",
-                choices = c("Select a state" = "", sort(unique(haunted_places$state)))),
-    selectInput("finder_city", "City:", choices = NULL),
-    uiOutput("finder_results")
-  ),
-  
-
-
-
-# Page 4: Division
-  tabPanel(
-    "Places by Region",
+    "Do Regions have Concentrations?",
     h1("Explore Haunted History by Region"),
     p("Compare the four phenomenon types across U.S. Census regions"),
     
@@ -107,7 +93,26 @@ ui <- navbarPage(
         plotOutput("divisionBarChart", height = "500px")
       )
     )
-  )
+  ),
 
+#Page 4: Types of phenomena by region
+tabPanel(
+  "Types of Phenomena by Region"
+  
+  #phenomena by division
+),
+
+
+# Page 5: How is your area haunted?
+tabPanel(
+  "How is Your Area Haunted?",
+  h1("Find Haunted Places by U.S. City"),
+  p("Filter to a state and type in your city to find haunted places close by!"),
+  selectInput("finder_state", "State:",
+              choices = c("Select a state" = "", sort(unique(haunted_places$state)))),
+  selectInput("finder_city", "City:", choices = NULL),
+  uiOutput("finder_results")
 )
 
+
+)
