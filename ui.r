@@ -120,91 +120,91 @@ dashboardBody(
   ),
   
   
-  #Page 4: Types of phenomena by division
-  tabItem(tabName = "GroupbyRegion",
-          h1("Explore Haunted History by Division"),
-          p("Compare the four phenomena types across U.S. Divisions"),
-          sidebarLayout(
-            sidebarPanel(
-              h3("Phenomenon by Division"),
-              p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census division")),
-              
-          mainPanel(
-          fluidRow(
-            box(
-              title = "Count By Century", width = 4, solidHeader = TRUE,
-              p("See the concentration by century and drop down into types of hauntings by century."),
-              selectInput(
-                inputId = "finder_division",
-                label = "Select a Division",
-                choices = c("All Divisions", sort(unique(haunted_places$division))),
-                selected = "All Divisions"
-              )
+  
+  # Page 4: Types of phenomena by division
+  tabItem(
+    tabName = "GroupbyRegion",
+    h1("Explore Haunted History by Division"),
+    p("Compare the four phenomena types across U.S. Divisions"),
+    
+    sidebarLayout(
+      sidebarPanel(
+        h3("Phenomenon by Division"),
+        p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census division.")
+      ),
+      
+      mainPanel(
+        fluidRow(
+          box(
+            title = "Count By Century",
+            width = 4,
+            solidHeader = TRUE,
+            p("See the concentration by century and drop down into types of hauntings by century."),
+            selectInput(
+              inputId = "finder_division",
+              label = "Select a Division",
+              choices = c("All Divisions",
+                          sort(unique(haunted_places$division))),
+              selected = "All Divisions"
             )
           ),
-            box(
-              height = "500px",
-              plotOutput("divisionBarChart")
-          )
-          )
           
-          ),
-          # phenomena by division plot goes here
-
-  )
+          box(
+            height = "500px",
+            width = 8,
+            plotOutput("divisionBarChart")
+          )
+        )
+      )
+    )
   ),
   
-
-  #  sidebarLayout(
-  #    sidebarPanel(
-  #      h3("Phenomenon by Division"),
-  #      p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census division")
-  #    ),
-  
-  
-  
-  
-  
-  #Page 5: How haunted is your area?
-  tabItem(tabName = "StateCityDropdown",
-          h1("Find Haunted Places by U.S. City"),
-          p("Filter to a state and type in your city to find haunted places close by!"),
-          fluidRow(
-            box(
-              width = 4,
-              selectInput("finder_state", "State:",
-                          choices = c("Select a state" = "",
-                                      sort(unique(haunted_places$state)))),
-              selectInput("finder_city", "City:", choices = NULL)
-            ),
-            box(
-              width = 8,
-              uiOutput("finder_results")
-            )
-          )
-  )
-),
-
-
-  #Page 6: About the Team 
-  tabItem(tabName = "MeetourTeam",
-  h1("Meet the Team"),
-  sidebarLayout(
-    sidebarPanel(
-      h3("Meet the Team"),
-      p("Team information goes here.")
-    ),
+  # Page 5: How haunted is your area?
+  tabItem(
+    tabName = "StateCityDropdown",
+    h1("Find Haunted Places by U.S. City"),
+    p("Filter to a state and type in your city to find haunted places close by!"),
     
-    mainPanel(
-      h3("About Our Project"),
-      p("Project description goes here.")
+    fluidRow(
+      box(
+        width = 4,
+        selectInput(
+          "finder_state",
+          "State:",
+          choices = c("Select a state" = "",
+                      sort(unique(haunted_places$state)))
+        ),
+        selectInput("finder_city", "City:", choices = NULL)
+      ),
+      
+      box(
+        width = 8,
+        uiOutput("finder_results")
+      )
+    )
+  ),
+  
+  # Page 6: About the Team
+  tabItem(
+    tabName = "MeetourTeam",
+    h1("Meet the Team"),
+    
+    sidebarLayout(
+      sidebarPanel(
+        h3("Meet the Team"),
+        p("Team information goes here.")
+      ),
+      
+      mainPanel(
+        h3("About Our Project"),
+        p("Project description goes here.")
+      )
     )
   )
+  
+  # Close tabItems
+  )
 )
-          
-          
-          
+
+# Close dashboardPage
 )
-
-
-
