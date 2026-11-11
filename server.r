@@ -5,6 +5,7 @@ library(tidyverse)
 library(ggpie)
 library(leaflet)
 library(leaflet.extras)
+library(plotly)
 
 
 #Access the data set
@@ -44,51 +45,86 @@ function(input, output, session){
   })
   
   
-# Bar chart of Phenomena Type by Setting
+  # Bar chart of Phenomena Type by Division
+  output$divisionBarChart <- renderPlotly({
     
+    # Filter data based on selected division
+    if (input$finder_division == "All Divisions") {
+      filtered_data <- haunted_places
+    } else {
+      filtered_data <- haunted_places %>%
+        filter(division == input$finder_division)
+    }
     
-    output$divisionBarChart <- renderPlot({
-      
-      ggplot(
-        haunted_places,
-        aes(
-          x = phenomena_type,
-          fill = division
+    # Create bar chart
+    p <- ggplot(
+      filtered_data,
+      aes(
+        x = phenomena_type,
+        fill = division,
+        text = paste(
+          "Phenomenon Type:", phenomena_type,
+          "<br>Division:", division
+        )
+      )
+    ) +
+      geom_bar(position = "stack") +
+      labs(
+        title = "Haunted Places by Phenomenon Type and Division",
+        x = "Phenomenon Type",
+        y = "Total Number of Hauntings",
+        fill = "Census Division"
+      ) +
+      scale_fill_manual(
+        values = c(
+          "New England" = "#6A3D9A",
+          "Middle Atlantic" = "#1F78B4",
+          "East North Central" = "#33A02C",
+          "West North Central" = "#B2DF8A",
+          "South Atlantic" = "#E31A1C",
+          "East South Central" = "#FF7F00",
+          "West South Central" = "#FDBF6F",
+          "Mountain" = "#A6CEE3",
+          "Pacific" = "#B15928"
         )
       ) +
-        geom_bar(position = "stack") +
-        labs(
-          title = "Haunted Places by Phenomenon Type and Division",
-          x = "Phenomenon Type",
-          y = "Total Number of Hauntings",
-          fill = "Census Division"
-        ) +
-        scale_fill_manual(
-          values = c(
-            "New England" = "#6A3D9A",
-            "Middle Atlantic" = "#1F78B4",
-            "East North Central" = "#33A02C",
-            "West North Central" = "#B2DF8A",
-            "South Atlantic" = "#E31A1C",
-            "East South Central" = "#FF7F00",
-            "West South Central" = "#FDBF6F",
-            "Mountain" = "#A6CEE3",
-            "Pacific" = "#B15928"
-          )
-        ) +
-        theme_minimal() +
-        theme(
-          plot.title = element_text(
-            face = "bold",
-            size = 15
-          ),
-          axis.text.x = element_text(
-            angle = 30,
-            hjust = 1
-          )
+      theme_minimal() +
+      theme(
+        plot.title = element_text(
+          face = "bold",
+          size = 15
+        ),
+        axis.text.x = element_text(
+          angle = 30,
+          hjust = 1
         )
-    })
+      )
     
+    # Convert ggplot to interactive Plotly chart
+    ggplotly(p, tooltip = "text")
+    
+  })
+  
+  # Information about selected bar
+  
+  output$bar_information <- renderText({
+    
+    if (input$finder_division == "All Divisions") {
+      
+      "Showing all Census divisions. Hover over the bars to see the phenomenon type and division."
+      
+    } else {
+      
+      paste(
+        "Currently displaying haunted places in the",
+        input$finder_division,
+        "Census division. Hover over the bars to explore the phenomenon types."
+        
+      )
+      
+    }
+    
+  })
   
 #Pie chart of setting vs state
   

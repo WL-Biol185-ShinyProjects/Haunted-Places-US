@@ -4,6 +4,7 @@ library(leaflet)
 library(leaflet.extras)
 library(tidyverse)
 library(shinydashboard)
+library(plotly)
 
 haunted_places <- read.csv("haunted_places.csv")
 
@@ -122,42 +123,46 @@ dashboardBody(
   
   
   # Page 4: Types of phenomena by division
+  
   tabItem(
     tabName = "GroupbyRegion",
+    
     h1("Explore Haunted History by Division"),
-    p("Compare the four phenomena types across U.S. Divisions"),
+    
+    p("Compare the four phenomena types across U.S. Divisions."),
     
     sidebarLayout(
       sidebarPanel(
         h3("Phenomenon by Division"),
-        p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census division.")
+        p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census division."),
+        
+        selectInput(
+          inputId = "finder_division",
+          label = "Select a Division",
+          choices = c("All Divisions",
+                      sort(unique(haunted_places$division))),
+          selected = "All Divisions"
+        )
       ),
       
       mainPanel(
-        fluidRow(
-          box(
-            title = "Count By Century",
-            width = 4,
-            solidHeader = TRUE,
-            p("See the concentration by century and drop down into types of hauntings by century."),
-            selectInput(
-              inputId = "finder_division",
-              label = "Select a Division",
-              choices = c("All Divisions",
-                          sort(unique(haunted_places$division))),
-              selected = "All Divisions"
-            )
-          ),
-          
-          box(
-            height = "500px",
-            width = 8,
-            plotOutput("divisionBarChart")
-          )
+        box(
+          title = "Phenomena by Division",
+          width = 12,
+          solidHeader = TRUE,
+          plotlyOutput("divisionBarChart", height = "500px")
+        ),
+        
+        box(
+          title = "Information About Selected Bar",
+          width = 12,
+          solidHeader = TRUE,
+          textOutput("bar_information")
         )
       )
     )
   ),
+  
   
   # Page 5: How haunted is your area?
   tabItem(
