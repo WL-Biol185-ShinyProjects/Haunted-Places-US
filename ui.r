@@ -21,7 +21,8 @@ ui <- dashboardPage(
                 menuItem("What kinds of Places are Haunted?", tabName = "TotalbySetting"),
                 menuItem("Do Regions have Concentrations?", tabName = "DivisionBarChart"),
                 menuItem("Types of Phenomena by Region", tabName = "GroupbyRegion"),
-                menuItem("What Kind of Haunting are you Likely to Experience?", tabName = "StateCityDropdown")
+                menuItem("What Kind of Haunting are you Likely to Experience?", tabName = "StateCityDropdown"),
+                menuItem("About our Team", tabName= "MeetourTeam")
     )
   ),
 
@@ -182,6 +183,28 @@ dashboardBody(
             )
           )
   )
+),
+
+
+  #Page 6: About the Team 
+  tabItem(tabName = "MeetourTeam",
+  h1("Meet the Team"),
+  sidebarLayout(
+    sidebarPanel(
+      h3("Meet the Team"),
+      p("Team information goes here.")
+    ),
+    
+    mainPanel(
+      h3("About Our Project"),
+      p("Project description goes here.")
+    )
+  )
 )
-) #ending paren
+          
+          
+          
+)
+
+
 
