@@ -92,35 +92,55 @@ dashboardBody(
             ),
             
         
-            # Text Cards
+            # Homepage Text Cards
             fluidRow(
               
-              valueBox(
-                value = "50",
-                subtitle = "States to Explore",
-                icon = icon("map-marked-alt"),
-                color = "light-blue",
-                width = 4
+              box(
+                title = "Data Deep Dive",
+                width = 4,
+                solidHeader = TRUE,
+                status = "danger",
+                
+                p("Explore haunted locations across the United States:"),
+                
+                tags$ul(
+                  tags$li("Identify patterns in haunted locations"),
+                  tags$li("Compare haunted locations across states"),
+                  tags$li("Discover regional concentrations of hauntings")
+                )
               ),
               
-              valueBox(
-                value = "Haunted Locations",
-                subtitle = "Discover America's spooky history",
-                icon = icon("ghost"),
-                color = "light-blue",
-                width = 4
+              box(
+                title = "Why Should You Care?",
+                width = 4,
+                solidHeader = TRUE,
+                status = "danger",
+                
+                p("Haunted places offer a fascinating look into American history:"),
+                
+                tags$ul(
+                  tags$li("Explore historical events and local legends"),
+                  tags$li("Understand the cultural significance of haunted places"),
+                  tags$li("Discover how stories shape our communities")
+                )
               ),
               
-              valueBox(
-                value = "Explore",
-                subtitle = "Find haunted places near you",
-                icon = icon("search"),
-                color = "light-blue",
-                width = 4
+              box(
+                title = "Explore the Unknown",
+                width = 4,
+                solidHeader = TRUE,
+                status = "danger",
+                
+                p("Discover the stories behind America's most infamous locations:"),
+                
+                tags$ul(
+                  tags$li("Explore mysterious hotels and historic landmarks"),
+                  tags$li("Investigate haunted locations across the country"),
+                  tags$li("Discover which states have the most reported hauntings")
+                )
               )
               
             )
-            
     ),
   
   #Page 2: What kinds of places are haunted?
