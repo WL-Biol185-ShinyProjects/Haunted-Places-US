@@ -202,27 +202,105 @@ function(input, output, session){
   }
 })
   
-# dropdown selection
+  # Dropdown selection
   observeEvent(input$finder_state, {
     req(input$finder_state)
-    cities <- sort(unique(haunted_places$city[haunted_places$state == input$finder_state]))
-    updateSelectInput(session, "finder_city", choices = cities)
+    
+    cities <- sort(unique(
+      haunted_places$city[
+        haunted_places$state == input$finder_state
+      ]
+    ))
+    
+    updateSelectInput(
+      session,
+      "finder_city",
+      choices = c("Select a city" = "", cities),
+      selected = ""
+    )
   })
   
+  
+  # Generate city-specific haunted history
   output$finder_results <- renderUI({
+    
     req(input$finder_state, input$finder_city)
-    d <- haunted_places[haunted_places$state == input$finder_state &
-                        haunted_places$city == input$finder_city,  ]
+    
+    d <- haunted_places[
+      haunted_places$state == input$finder_state &
+        haunted_places$city == input$finder_city,
+    ]
+    
+    n_places <- nrow(d)
+    
     tagList(
-      h3(nrow(d), ifelse(nrow(d) == 1, "haunted place in", "haunted places in"), input$finder_city),
-      tags$ul(lapply(seq_len(nrow(d)), function(i) {
-        tags$li(
-          tags$b(d$location[i]),
-          if (!is.na(d$year[i])) paste0(" (", d$year[i], ")"),
-          tags$br(),
-          d$description[i]
+      
+      # City introduction
+      h2(paste(input$finder_city, input$finder_state, sep = ", ")),
+      
+      h4("A History That Refuses to Stay Buried"),
+      
+      p(paste(
+        "Our records identify", n_places,
+        ifelse(n_places == 1, "haunted location", "haunted locations"),
+        "in", input$finder_city, "."
+      )),
+      
+      hr(),
+      
+      # Summary statistics
+      h3("Inside the City's Haunted History"),
+      
+      fluidRow(
+        column(
+          width = 6,
+          valueBox(
+            value = n_places,
+            subtitle = "Documented Haunted Places",
+            icon = icon("home"),
+            color = "purple"
+          )
+        ),
+        column(
+          width = 6,
+          valueBox(
+            value = length(unique(d$location)),
+            subtitle = "Unique Locations",
+            icon = icon("map-marker"),
+            color = "black"
+          )
         )
-      }))
+      ),
+      
+      hr(),
+      
+      # Individual haunted place stories
+      h3("The Stories Behind the Places"),
+      
+      p("Explore the locations and reported paranormal activity associated with this city."),
+      
+      lapply(seq_len(n_places), function(i) {
+        
+        tags$div(
+          style = paste(
+            "background-color: white;",
+            "padding: 15px;",
+            "margin-bottom: 15px;",
+            "border-left: 4px solid #398DB8;",
+            "border-radius: 5px;"
+          ),
+          
+          h4(d$location[i]),
+          
+          if (!is.na(d$year[i])) {
+            tags$p(
+              tags$em(paste("Year:", d$year[i]))
+            )
+          },
+          
+          tags$p(d$description[i])
+        )
+      })
     )
   })
   
