@@ -129,37 +129,39 @@ dashboardBody(
               
               box(
                 title = "Data Deep Dive",
+                style = "font-size: 20px ,margin-bottom: 10px;",
                 width = 4,
                 solidHeader = TRUE,
                 status = "danger",
                 
-                p("Explore haunted locations across the United States:"),
                 
                 tags$ul(
-                  tags$li("Identify patterns in haunted locations"),
-                  tags$li("Compare haunted locations across states"),
-                  tags$li("Discover regional concentrations of hauntings")
+                  tags$li("The earliest recorded haunting date is", strong("1500"), "with two hauntings this year (New York and South Carolina)"),
+                  tags$li(strong("California"), "has the highest number of total hauntings with a total of", strong ("1,070")," across all time periods"),
+                  tags$li(strong("Schools"), "are the most common setting for hauntings across the US with a total count of", strong("2,325"))
                 )
               ),
               
               box(
                 title = "Why Should You Care?",
                 width = 4,
+                style = "font-size: 20px ,margin-bottom: 10px;",
                 solidHeader = TRUE,
                 status = "danger",
                 
                 p("Haunted places offer a fascinating look into American history:"),
                 
                 tags$ul(
-                  tags$li("Explore historical events and local legends"),
-                  tags$li("Understand the cultural significance of haunted places"),
-                  tags$li("Discover how stories shape our communities")
+                  tags$li("Uncover significant historical hauntings right near you!"),
+                  tags$li("Explore what kinds of hauntings have shaped history across the US"),
+                  tags$li("Discover haunting hot-spots and trends across time")
                 )
               ),
               
               box(
                 title = "Explore the Unknown",
                 width = 4,
+                style = "font-size: 20px ,margin-bottom: 10px;",
                 solidHeader = TRUE,
                 status = "danger",
                 
