@@ -89,6 +89,36 @@ dashboardBody(
                 
                 leafletOutput("hauntingMap")
               )
+            ),
+            
+        
+            # Text Cards
+            fluidRow(
+              
+              valueBox(
+                value = "50",
+                subtitle = "States to Explore",
+                icon = icon("map-marked-alt"),
+                color = "light-blue",
+                width = 4
+              ),
+              
+              valueBox(
+                value = "Haunted Locations",
+                subtitle = "Discover America's spooky history",
+                icon = icon("ghost"),
+                color = "light-blue",
+                width = 4
+              ),
+              
+              valueBox(
+                value = "Explore",
+                subtitle = "Find haunted places near you",
+                icon = icon("search"),
+                color = "light-blue",
+                width = 4
+              )
+              
             )
             
     ),
