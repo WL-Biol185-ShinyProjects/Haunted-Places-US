@@ -19,10 +19,10 @@ ui <- dashboardPage(
   dashboardSidebar(
     sidebarMenu(id = "tabs",
                 menuItem("Where is America Haunted?", tabName = "IntroPage"),
-                menuItem("What kinds of Places are Haunted?", tabName = "TotalbySetting"),
+                menuItem("What Kinds of Places are Haunted?", tabName = "TotalbySetting"),
                 menuItem("Do Regions have Concentrations?", tabName = "DivisionBarChart"),
                 menuItem("Types of Phenomena by Region", tabName = "GroupbyRegion"),
-                menuItem("What Kind of Haunting are you Likely to Experience?", tabName = "StateCityDropdown"),
+                menuItem("Hauntings Near You", tabName = "StateCityDropdown"),
                 menuItem("About our Team", tabName= "MeetourTeam")
     )
   ),
@@ -70,10 +70,24 @@ dashboardBody(
             )
           ),
           fluidRow(
-            box(
-              title = "Haunted Places by Entity Type", width = 12, solidHeader = TRUE,
-              p("See the distribution of haunted places by entity type."),
+            column(12,
+              sidebarLayout(
+                sidebarPanel(
+                  title = "Haunted Places by Entity Type",
+                  p("See the distribution of haunted places by entity type."),
+              selectInput(
+                inputId = "statepie",
+                label = "Filter by State:",
+                choices = c("All States" = "All",
+                            sort(unique(haunted_places$state))),
+                selected = "All"
+                )
+                ),
+              
+              mainPanel(
               plotOutput("pie")
+              )
+            )
             )
           ),
           fluidRow(
@@ -113,7 +127,9 @@ dashboardBody(
           #choropleth map of the divisions, colored by count of hauntings 
           fluidRow(
             box(
+              width = 12,
           h1("Concentration Map"),
+          p("Explore concentrations on a state by state basis."),
           leafletOutput("chloropleth")
           )
           )

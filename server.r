@@ -132,7 +132,7 @@ function(input, output, session){
     ggpie(haunted_places %>%
             filter(
               entity_type != "unspecified",
-              input$state == "All" | state == input$state), 
+              input$statepie == "All" | state == input$statepie), 
           group_key = "setting",
           count_type  = "full",
           label_info  = "ratio",
