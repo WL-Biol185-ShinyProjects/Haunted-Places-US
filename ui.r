@@ -20,7 +20,7 @@ ui <- dashboardPage(
     sidebarMenu(id = "tabs",
                 menuItem("Where is America Haunted?", tabName = "IntroPage"),
                 menuItem("What Kinds of Places are Haunted?", tabName = "TotalbySetting"),
-                menuItem("Do Regions have Concentrations?", tabName = "DivisionBarChart"),
+                menuItem("Do Regions have Concentrations?", tabName = "DivisionBarChartTab"),
                 menuItem("Types of Phenomena by Region", tabName = "GroupbyRegion"),
                 menuItem("Hauntings Near You", tabName = "StateCityDropdown"),
                 menuItem("About our Team", tabName= "MeetourTeam")
@@ -110,7 +110,7 @@ dashboardBody(
   
   
   #Page 3: Do Divisions have concentrations?
-  tabItem(tabName = "DivisionBarChart",
+  tabItem(tabName = "DivisionBarChartTab",
           h1("Explore Haunted History by Region"),
           p("Compare the four phenomenon types across U.S. Census regions."),
           fluidRow(
@@ -120,11 +120,11 @@ dashboardBody(
             ),
             box(
               width = 8,
-              plotOutput("divisionBarChart", height = "500px")
+              plotlyOutput("divisionBarChart1", height = "500px")
             ),
             
           #setting by division
-          #choropleth map of the divisions, colored by count of hauntings 
+          #choropleth map of the divisions, colored by count of hauntings. need to fix api key thing
           fluidRow(
             box(
               width = 12,
@@ -166,7 +166,8 @@ dashboardBody(
           title = "Phenomena by Division",
           width = 12,
           solidHeader = TRUE,
-          plotlyOutput("divisionBarChart", height = "500px")
+          plotOutput("divisionBarChart2", height = "500px", click = "plotClick"),
+          textOutput("clickDetail")
         ),
         
         box(

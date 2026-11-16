@@ -46,7 +46,7 @@ function(input, output, session){
   
   
   # Bar chart of Phenomena Type by Division
-  output$divisionBarChart <- renderPlotly({
+  output$divisionBarChart1 <- renderPlotly({
     
     # Filter data based on selected division
     if (input$finder_division == "All Divisions") {
@@ -111,7 +111,9 @@ function(input, output, session){
     
     if (input$finder_division == "All Divisions") {
       
-      "Showing all Census divisions. Hover over the bars to see the phenomenon type and division."
+      paste(
+        "Showing all Census divisions. Hover over the bars to see the phenomenon type and division."
+        )
       
     } else {
       
@@ -218,15 +220,15 @@ function(input, output, session){
   
   
   # Division dropdown selection and bar click feature with corresponding text
-  output$divisionBarChart <- renderPlot({
+  output$divisionBarChart2 <- renderPlot({
 
     
     req(input$finder_division)
     
     d <- haunted_places %>%
-      filter(division == input$finder_division)
+      filter(input$finder_division == "All Divisions" | division == input$finder_division)
     
-    ggplot(d, aes(x = `phenomena_type`)) +
+    ggplot(d, aes(x = phenomena_type)) +
       geom_bar(fill = "steelblue") +
       labs(
         title = paste("Phenomena Types in", input$finder_division),
@@ -237,9 +239,12 @@ function(input, output, session){
   })
   
   output$clickDetail <- renderText({
-    input$plotClick
-    row=nearPoints(haunted_places,input$plotClick)
-    "Hey here is the text"
+    req(input$plotClick)
+    types = sort(unique(haunted_places$phenomena_type))
+    i = round(input$plotClick$x)
+    type = types[i]
+    n <- sum(haunted_places$phenomena_type == type, na.rm = TRUE)
+    paste(type, ": ", n, " haunted places in ", input$finder_division)
   })
   
 
