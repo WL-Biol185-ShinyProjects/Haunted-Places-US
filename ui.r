@@ -64,7 +64,7 @@ dashboardBody(
   tabItems(
   
     
-    # Page 1: Where is America Haunted?
+# Page 1: Where is America Haunted?
     tabItem(tabName = "IntroPage",
             
             h1("Welcome to the Haunted Places Explorer"),
@@ -175,13 +175,22 @@ dashboardBody(
             )
     ),
   
-  #Page 2: What kinds of places are haunted?
+#Page 2: What kinds of places are haunted?
   tabItem(tabName = "TotalbySetting",
-          h1("Haunted Places by State"),
-          p("Compare the number of haunted places recorded in each state."),
+          h1("What kinds of places are haunted?"),
+          p("Haunted places are found in all kinds of locations across America. From schools and cemeteries to private homes and hotels, reports of hauntings span a wide variety of settings."),
+          p("But are some places more commonly associated with hauntings than others? Explore the data below to find out!"),
+          #br(), what does this do?
+          
+          #CHART 1: ENTITY TYPES
           fluidRow(
             box(
+              title = "1. What Types of Places are Haunted?",
               width = 12,
+              solidHeader = TRUE,
+              
+              p("Some types of locations appear more frequently in the haunted-place records than others. Use hte filter below to explore how these patterns vary by state."),
+              
               selectInput(
                 inputId = "state",
                 label = "Filter by State:",
@@ -192,47 +201,72 @@ dashboardBody(
               plotOutput("hauntedBarChart")
             )
           ),
+          #br(),
+          
+          #CHART 2: SETTINGS
           fluidRow(
-            column(12,
-              sidebarLayout(
-                sidebarPanel(
-                  title = "Haunted Places by Entity Type",
-                  p("See the distribution of haunted places by entity type."),
+            box(
+              title = "2. What Settings are Most Commonly Haunted?",
+              width = 12,
+              solidHeader = TRUE,
+              
+              p("Not all haunted places are the same. While cemeteries are often associated with ghost stories, hauntings are also recorded in everyday locations like schools, houses, and hotels."),
+              p("Explore the distribution of haunted place settings and hover over individual slices to see their counts and percentages."),
+              
               selectInput(
                 inputId = "statepie",
                 label = "Filter by State:",
-                choices = c("All States" = "All",
-                            sort(unique(haunted_places$state))),
-                selected = "All"
-                )
+                choices = c(
+                  "All States" = "All",
+                  sort(unique(haunted_places$state))
                 ),
+                selected = "All"
+              ),
               
-              mainPanel(
-              plotlyOutput("pie")
-              )
-            )
+              plotlyOutput("pie", height = "450px")
             )
           ),
+          #br(),
+          
+          #CHART 3: HISTORICAL DISTRIBUTION
           fluidRow(
             box(
-              title = "Count By Century", width = 4, solidHeader = TRUE,
-              p("See the concentration by century and drop down into types of hauntings by century."),
+              title = "3. When do These Haunted Places Originate?",
+              width = 12, 
+              solidHeader = TRUE,
+              
+              p("Haunted place records span multiple centuries. Looking at their historical distribution helps us understand which time periods are most represented in the dataset."),
+              p("Select a century to explore the distribution of haunted paces across historical periods."),
+              
               selectInput(
                 inputId = "century",
-                label = "Century:",
+                label = "Filter by Century:",
                 choices = c("All Centuries", sort(unique(by_century$century))),
                 selected = "All Centuries"
-              )
-            ),
+              ),
+              
+              plotOutput("century_bar", height = "400px")
+            )
+          ),
+          
+          #br()
+          
+          #CONCLUSION
+          fluidRow(
             box(
-              width = 8,
-              plotOutput("century_bar")
+              title = "What Does the Data Tell Us?",
+              width = 12,
+              solidHeader = TRUE,
+              
+              p("The distribution of haunted places reveals that reports of hauntings are associated with a wide variety of locations and historical periods."),
+              p("By comparing entity types, settings, and centuries, we can ebtter understand the patterns found within America's haunted place records.")
             )
           )
   ),
+            
   
   
-  #Page 3: Do Divisions have concentrations?
+#Page 3: Do Divisions have concentrations?
   tabItem(tabName = "DivisionBarChartTab",
           h1("Explore Haunted History by Region"),
           p("Compare the four phenomenon types across U.S. Census regions."),
@@ -261,8 +295,7 @@ dashboardBody(
   
   
   
-  # Page 4: Types of phenomena by division
-  
+# Page 4: Types of phenomena by division
   tabItem(
     tabName = "GroupbyRegion",
     
@@ -304,32 +337,41 @@ dashboardBody(
   ),
   
   
-  # Page 5: How haunted is your area?
+# Page 5: How haunted is your area?
   tabItem(
     tabName = "StateCityDropdown",
     h1("Find Haunted Places by U.S. City"),
-    p("Filter to a state and type in your city to find haunted places close by!"),
-    
+    p("Every city has a history. Some are harder to explain than others. Explore the haunted places and paranormal stories hiding in communities across America."),    
     fluidRow(
       box(
-        width = 4,
+        width = 3,
+        title = "Choose Your Desitnation",
+        status = "primary",
+        solidHeader = TRUE,
+        
+        p("Where would you like to investigate?"),
+        
         selectInput(
           "finder_state",
           "State:",
           choices = c("Select a state" = "",
                       sort(unique(haunted_places$state)))
         ),
+        
         selectInput("finder_city", "City:", choices = NULL)
       ),
       
       box(
-        width = 8,
+        width = 9,
+        title = "Your City's Haunted History",
+        status = "primary",
+        solidHeader = TRUE,
         uiOutput("finder_results")
       )
     )
   ),
   
-  # Page 6: About the Team
+# Page 6: About the Team
   tabItem(
     tabName = "MeetourTeam",
     h1("Meet the Team"),
