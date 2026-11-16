@@ -16,7 +16,7 @@ by_century <- haunted_places %>%
 
 
 ui <- dashboardPage(
-  dashboardHeader(title = "Haunted Places in the US"),
+  dashboardHeader(title = NULL),
   dashboardSidebar(
     sidebarMenu(id = "tabs",
                 menuItem("Where is America Haunted?", tabName = "IntroPage"),
@@ -29,6 +29,38 @@ ui <- dashboardPage(
   ),
 
 dashboardBody(
+  tags$head(
+    tags$style(HTML("
+    /* Hide the original title area */
+    .main-header .logo {
+      display: none;
+    }
+
+    /* Expand the navbar */
+    .main-header .navbar {
+      margin-left: 0 !important;
+      background-color: #398DB8;
+    }
+
+    /* Keep the hamburger menu on the left */
+    .main-header .navbar .sidebar-toggle {
+      float: left;
+      color: white;
+    }
+
+    /* Add the title to the right of the hamburger */
+    .main-header .navbar:after {
+      content: 'Haunted Places in the United States';
+      position: absolute;
+      left: 60px;
+      top: 0;
+      line-height: 50px;
+      color: white;
+      font-size: 18px;
+      font-weight: 400;
+    }
+  "))
+  ),
   tabItems(
   
     
