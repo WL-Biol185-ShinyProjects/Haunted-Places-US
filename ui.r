@@ -5,6 +5,7 @@ library(leaflet.extras)
 library(tidyverse)
 library(shinydashboard)
 library(plotly)
+library(bslib)
 
 haunted_places <- read.csv("haunted_places.csv")
 
@@ -31,25 +32,65 @@ dashboardBody(
   tabItems(
   
     
-    #Page 1: Where is America Haunted?
+    # Page 1: Where is America Haunted?
     tabItem(tabName = "IntroPage",
+            
             h1("Welcome to the Haunted Places Explorer"),
+            
             p("Explore haunted places across the United States."),
+            
             p("This interactive dashboard lets you investigate haunted locations, compare states, and discover regional patterns."),
+            
+            # Text Cards
+            fluidRow(
+              
+              valueBox(
+                value = "50",
+                subtitle = "States to Explore",
+                icon = icon("map-marked-alt"),
+                color = "light-blue",
+                width = 4
+              ),
+              
+              valueBox(
+                value = "Haunted Locations",
+                subtitle = "Discover America's spooky history",
+                icon = icon("ghost"),
+                color = "light-blue",
+                width = 4
+              ),
+              
+              valueBox(
+                value = "Explore",
+                subtitle = "Find haunted places near you",
+                icon = icon("search"),
+                color = "light-blue",
+                width = 4
+              )
+              
+            ),
+            
+            # Map
             fluidRow(
               box(
-                title = "Map of Hauntings", width = 12, solidHeader = TRUE,
+                title = "Map of Hauntings",
+                width = 12,
+                solidHeader = TRUE,
+                
                 selectInput(
                   inputId = "map_type",
                   label = "Select Map Style",
-                  choices = c("Heat Map" = "heat",
-                              "Individual Markers" = "markers"),
+                  choices = c(
+                    "Heat Map" = "heat",
+                    "Individual Markers" = "markers"
+                  ),
                   selected = "heat"
                 ),
+                
                 leafletOutput("hauntingMap")
               )
             )
-
+            
     ),
   
   #Page 2: What kinds of places are haunted?
