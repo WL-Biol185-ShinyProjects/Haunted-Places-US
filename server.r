@@ -131,21 +131,28 @@ function(input, output, session){
   
 #Pie chart of setting vs state
   
-  output$pie <- renderPlot({
-    ggpie(haunted_places %>%
-            filter(
-              entity_type != "unspecified",
-              input$statepie == "All" | state == input$statepie), 
-          group_key = "setting",
-          count_type  = "full",
-          label_info  = "ratio",
-          label_type  = "horizon",
-          label_pos   = "out",
-          label_split = NULL,
-          label_size  = 4,
-          border_color = "white",
-          border_size  = 1
-    )  
+  output$pie <- renderPlotly({
+    
+    filtered_data <- haunted_places %>%
+      filter(
+        entity_type != "unspecified",
+        input$statepie == "All" | state == input$statepie
+      ) %>%
+      count(setting)
+    
+    plot_ly(
+      data = filtered_data,
+      labels = ~setting,
+      values = ~n,
+      type = "pie",
+      textinfo = "percent",
+      hovertemplate = paste(
+        "<b>%{label}</b>",
+        "<br>Count: %{value}",
+        "<br>Percentage: %{percent}",
+        "<extra></extra>"
+      )
+    )
   })
   
   

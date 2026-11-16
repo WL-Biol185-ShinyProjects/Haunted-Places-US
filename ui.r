@@ -156,7 +156,7 @@ dashboardBody(
                 ),
               
               mainPanel(
-              plotOutput("pie")
+              plotlyOutput("pie")
               )
             )
             )
