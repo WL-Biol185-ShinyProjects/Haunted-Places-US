@@ -21,7 +21,7 @@ ui <- dashboardPage(
                 menuItem("Where is America Haunted?", tabName = "IntroPage"),
                 menuItem("What Kinds of Places are Haunted?", tabName = "TotalbySetting"),
                 menuItem("Do Regions have Concentrations?", tabName = "DivisionBarChartTab"),
-                menuItem("Types of Phenomena by Region", tabName = "GroupbyRegion"),
+                menuItem("Types of Phenomena by Division", tabName = "GroupbyRegion"),
                 menuItem("Hauntings Near You", tabName = "StateCityDropdown"),
                 menuItem("About our Team", tabName= "MeetourTeam")
     )
