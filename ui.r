@@ -30,37 +30,145 @@ ui <- dashboardPage(
 
 dashboardBody(
   tags$head(
+    
     tags$style(HTML("
-    /* Hide the original title area */
-    .main-header .logo {
-      display: none;
+        /* GENERAL BACKGROUND */
+      body,
+    .content-wrapper,
+    .right-side,
+    .skin-blue .content-wrapper {
+      background-color: #292B35 !important;
+        color: #EAE5D9 !important;
+        font-family: Georgia, serif;
     }
+    
+    /* TOP NAVIGATION BAR */
+      .main-header .navbar,
+    .skin-blue .main-header .navbar {
+      background-color: #171923 !important;
+        margin-left: 0 !important;
+    }
+    
+    /* TOP NAVIGATION TITLE */
+      .main-header .navbar:after {
+        content: 'HAUNTED PLACES IN THE UNITED STATES';
+        position: absolute;
+        left: 60px;
+        top: 0;
+        line-height: 50px;
+        color: #D4BD91;
+          font-family: Georgia, serif;
+        font-size: 17px;
+        letter-spacing: 2px;
+      }
+    
+    /* HAMBURGER MENU */
+      .main-header .navbar .sidebar-toggle {
+        color: #EAE5D9 !important;
+      }
+    
+    /* SIDEBAR */
+      .main-sidebar,
+    .skin-blue .main-sidebar {
+      background-color: #171923 !important;
+    }
+    
+    .sidebar-menu > li > a {
+      color: #EAE5D9 !important;
+        font-family: Georgia, serif;
+    }
+    
+    .sidebar-menu > li.active > a {
+      background-color: #702C3C !important;
+        border-left-color: #B69A68 !important;
+    }
+    
+    /* MAIN HEADINGS */
+      h1, h2, h3 {
+        font-family: Georgia, serif;
+        color: #EAE5D9 !important;
+      }
+    
+    h1 {
+      letter-spacing: 1px;
+    }
+    
+    /* PAGE PARAGRAPHS */
+      .content-wrapper p {
+        color: #EAE5D9;
+      }
+    
+    /* VALUE BOXES */
+      .small-box {
+        background-color: #702C3C !important;
+          color: #EAE5D9 !important;
+          border-bottom: 4px solid #B69A68;
+      }
+    
+    .small-box h3,
+    .small-box p {
+      color: #EAE5D9 !important;
+    }
+    
+    /* DASHBOARD BOXES */
+      .box {
+        background-color: #EAE5D9 !important;
+          border-top: 3px solid #B69A68 !important;
+        border-radius: 5px;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+      }
+    
+    .box-header {
+      background-color: #702C3C !important;
+        color: #EAE5D9 !important;
+    }
+    
+    .box-title {
+      font-family: Georgia, serif !important;
+      letter-spacing: 0.5px;
+      color: #EAE5D9 !important;
+    }
+    
+    /* LINKS */
+      a {
+        color: #702C3C;
+      }
+    
+    a:hover {
+      color: #B69A68;
+    }
+    
+    
+#    /* Hide the original title area */
+#    .main-header .logo {
+#      display: none;
+#    }
 
-    /* Expand the navbar */
-    .main-header .navbar {
-      margin-left: 0 !important;
-      background-color: #398DB8;
-    }
+#    /* Expand the navbar */
+#    .main-header .navbar {
+#      margin-left: 0 !important;
+#      background-color: #398DB8;
+#    }
 
-    /* Keep the hamburger menu on the left */
-    .main-header .navbar .sidebar-toggle {
-      float: left;
-      color: white;
-    }
+#    /* Keep the hamburger menu on the left */
+#    .main-header .navbar .sidebar-toggle {
+#      float: left;
+#      color: white;
+#    }
 
-    /* Add the title to the right of the hamburger */
-    .main-header .navbar:after {
-      content: 'Haunted Places in the United States';
-      position: absolute;
-      left: 60px;
-      top: 0;
-      line-height: 50px;
-      color: white;
-      font-size: 18px;
-      font-weight: 400;
-    }
-  "))
-  ),
+#    /* Add the title to the right of the hamburger */
+#    .main-header .navbar:after {
+#      content: 'Haunted Places in the United States';
+#      position: absolute;
+#      left: 60px;
+#      top: 0;
+#      line-height: 50px;
+#      color: white;
+#      font-size: 18px;
+#      font-weight: 400;
+#    }
+"))
+),
   tabItems(
   
     
@@ -80,7 +188,7 @@ dashboardBody(
                 value = "50",
                 subtitle = "States to Explore",
                 icon = icon("map-marked-alt"),
-                color = "light-blue",
+                color = "black",
                 width = 4
               ),
               
@@ -88,7 +196,7 @@ dashboardBody(
                 value = "Haunted Locations",
                 subtitle = "Discover America's spooky history",
                 icon = icon("ghost"),
-                color = "light-blue",
+                color = "black",
                 width = 4
               ),
               
@@ -96,7 +204,7 @@ dashboardBody(
                 value = "Explore",
                 subtitle = "Find haunted places near you",
                 icon = icon("search"),
-                color = "light-blue",
+                color = "black",
                 width = 4
               )
               
@@ -132,7 +240,7 @@ dashboardBody(
                 style = "font-size: 20px ,margin-bottom: 10px;",
                 width = 4,
                 solidHeader = TRUE,
-                status = "danger",
+                status = "primary",
                 
                 
                 tags$ul(
