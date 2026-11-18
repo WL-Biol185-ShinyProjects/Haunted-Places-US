@@ -400,24 +400,85 @@ dashboardBody(
     )
   ),
   
+
 # Page 6: About the Team
-  tabItem(
-    tabName = "MeetourTeam",
-    h1("Meet the Team"),
+tabItem(
+  tabName = "MeetourTeam",
+  
+  h1("Meet the Team"),
+  p("Get to know the people behind our project!"),
+  
+  fluidRow(
     
-    sidebarLayout(
-      sidebarPanel(
-        h3("Meet the Team"),
-        p("Team information goes here.")
+    # Team Member 1
+    box(
+      title = "",
+      status = "primary",
+      solidHeader = TRUE,
+      width = 4,
+      
+      div(
+        align = "center",
+        img(
+          src = "Team_member1.PNG",
+          height = "180px",
+          width = "180px",
+          style = "border-radius: 50%; object-fit: cover;"
+        )
       ),
       
-      mainPanel(
-        h3("About Our Project"),
-        p("Project description goes here.")
-      )
+      h3("Mackenzie Moore"),
+      p("Washington and Lee Class of 2027"),
+      p("Accounting major | Data Science minor")
+    ),
+    
+    # Team Member 2
+    box(
+      title = "",
+      status = "primary",
+      solidHeader = TRUE,
+      width = 4,
+      
+      div(
+        align = "center",
+        img(
+          src = "Team_member2.PNG",
+          height = "180px",
+          width = "180px",
+          style = "border-radius: 50%; object-fit: cover;"
+        )
+      ),
+      
+      h3("Raleigh Craft"),
+      p("Washington and Lee Class of 2027"),
+      p("Business Administration major | Data Science minor")
+    ),
+    
+    # Team Member 3
+    box(
+      title = "",
+      status = "primary",
+      solidHeader = TRUE,
+      width = 4,
+      
+      div(
+        align = "center",
+        img(
+          src = "Team_member3.PNG",
+          height = "180px",
+          width = "180px",
+          style = "border-radius: 50%; object-fit: cover;"
+        )
+      ),
+      
+      h3("Kelcie Comisac"),
+      p("Washington and Lee Class of 2027"),
+      p("Economics major | Data Science, Art History minors")
     )
+    
   )
-  
+)
+
   # Close tabItems
   )
 )
