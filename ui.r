@@ -21,7 +21,7 @@ ui <- dashboardPage(
     sidebarMenu(id = "tabs",
                 menuItem("Where is America Haunted?", tabName = "IntroPage"),
                 menuItem("What Kinds of Places are Haunted?", tabName = "TotalbySetting"),
-                menuItem("Do Regions have Concentrations?", tabName = "DivisionBarChartTab"),
+            #  menuItem("Do Regions have Concentrations?", tabName = "DivisionBarChartTab"),
                 menuItem("Types of Phenomena by Division", tabName = "GroupbyRegion"),
                 menuItem("Hauntings Near You", tabName = "StateCityDropdown"),
                 menuItem("About our Team", tabName= "MeetourTeam")
@@ -191,7 +191,7 @@ dashboardBody(
               width = 12,
               solidHeader = TRUE,
               
-              p("Some types of locations appear more frequently in the haunted-place records than others. Use hte filter below to explore how these patterns vary by state."),
+              p("Some types of locations appear more frequently in the haunted-place records than others. Use the filter below to explore how these patterns vary by state."),
               
               selectInput(
                 inputId = "state",
@@ -269,31 +269,21 @@ dashboardBody(
   
   
 #Page 3: Do Divisions have concentrations?
-  tabItem(tabName = "DivisionBarChartTab",
-          h1("Explore Haunted History by Region"),
-          p("Compare the four phenomenon types across U.S. Census regions."),
-          fluidRow(
-            box(
-              title = "Phenomenon by Region", width = 4, solidHeader = TRUE,
-              p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census region.")
-            ),
-            box(
-              width = 8,
-              plotlyOutput("divisionBarChart1", height = "500px")
-            ),
-            
-          #setting by division
-          #choropleth map of the divisions, colored by count of hauntings. need to fix api key thing
-          fluidRow(
-            box(
-              width = 12,
-          h1("Concentration Map"),
-          p("Explore concentrations on a state by state basis."),
-          leafletOutput("chloropleth")
-          )
-          )
-          )
-  ),
+#  tabItem(tabName = "DivisionBarChartTab",
+#          h1("Explore Haunted History by Region"),
+#          p("Compare the four phenomenon types across U.S. Census regions."),
+#          fluidRow(
+#            box(
+#              title = "Phenomenon by Region", width = 4, solidHeader = TRUE,
+#              p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census region.")
+#            ),
+#            box(
+#              width = 8,
+#              plotlyOutput("divisionBarChart1", height = "500px")
+#            ),
+#         
+#          )
+#  ),
   
   
   
@@ -302,6 +292,18 @@ dashboardBody(
     tabName = "GroupbyRegion",
     
     h1("Explore Haunted History by Division"),
+    
+    
+    #setting by division
+    #choropleth map of the divisions, colored by count of hauntings. need to fix api key thing
+    fluidRow(
+      box(
+        width = 12,
+        h1("Concentration Map"),
+        p("Explore concentrations on a state by state basis."),
+        leafletOutput("chloropleth")
+      )
+    ), 
     
     p("Compare the four phenomena types across U.S. Divisions."),
     
