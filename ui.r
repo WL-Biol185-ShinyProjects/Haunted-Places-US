@@ -21,7 +21,7 @@ ui <- dashboardPage(
     sidebarMenu(id = "tabs",
                 menuItem("Where is America Haunted?", tabName = "IntroPage"),
                 menuItem("What Kinds of Places are Haunted?", tabName = "TotalbySetting"),
-                menuItem("Do Regions have Concentrations?", tabName = "DivisionBarChartTab"),
+            #  menuItem("Do Regions have Concentrations?", tabName = "DivisionBarChartTab"),
                 menuItem("Types of Phenomena by Division", tabName = "GroupbyRegion"),
                 menuItem("Hauntings Near You", tabName = "StateCityDropdown"),
                 menuItem("About our Team", tabName= "MeetourTeam")
@@ -191,7 +191,7 @@ dashboardBody(
               width = 12,
               solidHeader = TRUE,
               
-              p("Some types of locations appear more frequently in the haunted-place records than others. Use hte filter below to explore how these patterns vary by state."),
+              p("Some types of locations appear more frequently in the haunted-place records than others. Use the filter below to explore how these patterns vary by state."),
               
               selectInput(
                 inputId = "state",
@@ -269,31 +269,21 @@ dashboardBody(
   
   
 #Page 3: Do Divisions have concentrations?
-  tabItem(tabName = "DivisionBarChartTab",
-          h1("Explore Haunted History by Region"),
-          p("Compare the four phenomenon types across U.S. Census regions."),
-          fluidRow(
-            box(
-              title = "Phenomenon by Region", width = 4, solidHeader = TRUE,
-              p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census region.")
-            ),
-            box(
-              width = 8,
-              plotlyOutput("divisionBarChart1", height = "500px")
-            ),
-            
-          #setting by division
-          #choropleth map of the divisions, colored by count of hauntings. need to fix api key thing
-          fluidRow(
-            box(
-              width = 12,
-          h1("Concentration Map"),
-          p("Explore concentrations on a state by state basis."),
-          leafletOutput("chloropleth")
-          )
-          )
-          )
-  ),
+#  tabItem(tabName = "DivisionBarChartTab",
+#          h1("Explore Haunted History by Region"),
+#          p("Compare the four phenomenon types across U.S. Census regions."),
+#          fluidRow(
+#            box(
+#              title = "Phenomenon by Region", width = 4, solidHeader = TRUE,
+#              p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census region.")
+#            ),
+#            box(
+#              width = 8,
+#              plotlyOutput("divisionBarChart1", height = "500px")
+#            ),
+#         
+#          )
+#  ),
   
   
   
@@ -302,41 +292,78 @@ dashboardBody(
     tabName = "GroupbyRegion",
     
     h1("Explore Haunted History by Division"),
+    p("From the Pacific Coast to New England, reports of paranormal activity appear ascross the United States. But, are some regions more haunted than others? Explore the geographic patterns and types of phenomena reported throughout the country."),
+    br(),
     
-    p("Compare the four phenomena types across U.S. Divisions."),
+    #setting by division
+    #choropleth map of the divisions, colored by count of hauntings. need to fix api key thing
+    fluidRow(
+      box(
+        width = 12,
+        title = "Where are Haunted Places Concentrated?",
+        status = "primary",
+        solidHeader = TRUE,
+        
+        p("Some states have far more documented haunted locations than others. Explore the map to see where reports of paranormal activity are most concentrated."),
+        p(em("Darker shades represent a greater number of documented haunted places.")),
+
+        leafletOutput("chloropleth", height = "400px")
+      )
+    ), 
+    
+    br(),
+    
+    #section 2
+    h2("Do Different Regions Experience Different Hauntings?"),
+    p("Beyond where hauntings occur, the types of paranormal experiences reported may also reveal interesting regional patterns. Compare auditory, physical, tactile, and visual phenomena across the nine U.S. Census divisions."),
+    p("Select a region to investigate its paranormal profile, or explore all divisions to see the national picture."),
     
     sidebarLayout(
       sidebarPanel(
-        h3("Phenomenon by Division"),
-        p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census division."),
+        h3("Explore a Division"),
+        
+        p("Choose a Census division to narrow your exploration to a specific part of the country."),
         
         selectInput(
           inputId = "finder_division",
-          label = "Select a Division",
-          choices = c("All Divisions",
-                      sort(unique(haunted_places$division))),
+          label = "Select a Division:",
+          choices = c(
+            "All Divisions",
+            sort(unique(haunted_places$division))
+            ),
           selected = "All Divisions"
-        )
       ),
+      br(),
+      
+      p(em("Tip: Hover over the bars to explore the data and click to learn more."))
+    ),
       
       mainPanel(
         box(
-          title = "Phenomena by Division",
+          title = "Types of Paranormal Phenomena",
           width = 12,
           solidHeader = TRUE,
-          plotOutput("divisionBarChart2", height = "500px", click = "plotClick"),
+          
+          p("Which experiences are reported most frequently? Compare the different categories of paranormal activity in your selected region."),
+          plotOutput(
+            "divisionBarChart2", 
+            height = "450px", 
+            click = "plotClick"),
+          
           textOutput("clickDetail")
         ),
         
         box(
-          title = "Information About Selected Bar",
+          title = "Discover the Details",
           width = 12,
           solidHeader = TRUE,
+          
+          p("Select a bar in the chart to uncover more about the reported paranormal activity in this region."),
           textOutput("bar_information")
         )
       )
     )
-  ),
+    ),
   
   
 # Page 5: How haunted is your area?
@@ -455,6 +482,7 @@ tabItem(
   # Close tabItems
   )
 )
+
 
 # Close dashboardPage
 )
