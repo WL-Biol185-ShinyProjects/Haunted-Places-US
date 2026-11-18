@@ -261,7 +261,7 @@ dashboardBody(
               solidHeader = TRUE,
               
               p("The distribution of haunted places reveals that reports of hauntings are associated with a wide variety of locations and historical periods."),
-              p("By comparing entity types, settings, and centuries, we can ebtter understand the patterns found within America's haunted place records.")
+              p("By comparing entity types, settings, and centuries, we can better understand the patterns found within America's haunted place records.")
             )
           )
   ),
