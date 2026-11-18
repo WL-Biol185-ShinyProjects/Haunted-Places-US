@@ -128,7 +128,7 @@ dashboardBody(
             fluidRow(
               
               box(
-                title = "Data Deep Dive",
+                title = "Quick Facts about the Data",
                 style = "font-size: 20px ,margin-bottom: 10px;",
                 width = 4,
                 solidHeader = TRUE,
