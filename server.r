@@ -361,7 +361,7 @@ function(input, output, session){
     
     leaflet(map_data) %>%
       setView(-96, 37.8, 4) %>%
-      addProviderTiles(providers$CartoDB.Positron) %>%
+      addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
       addPolygons(
         fillColor = ~pal(n_rows),
         weight = 2,

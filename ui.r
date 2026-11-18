@@ -274,7 +274,7 @@ dashboardBody(
 #          p("Compare the four phenomenon types across U.S. Census regions."),
 #          fluidRow(
 #            box(
-#              title = "Phenomenon by Region", width = 4, solidHeader = TRUE,
+#              title = "Phenomenon by Division", width = 4, solidHeader = TRUE,
 #              p("Each bar represents a phenomenon type, with colored segments showing the number of haunted places in each Census region.")
 #            ),
 #            box(
@@ -292,7 +292,7 @@ dashboardBody(
     tabName = "GroupbyRegion",
     
     h1("Explore Haunted History by Division"),
-    p("From the Pacific Coast to New England, reports of paranormal activity appear ascross the United States. But, are some regions more haunted than others? Explore the geographic patterns and types of phenomena reported throughout the country."),
+    p("From the Pacific Coast to New England, reports of paranormal activity appear ascross the United States. But, are some divisions more haunted than others? Explore the geographic patterns and types of phenomena reported throughout the country."),
     br(),
     
     #setting by division
@@ -314,9 +314,9 @@ dashboardBody(
     br(),
     
     #section 2
-    h2("Do Different Regions Experience Different Hauntings?"),
+    h2("Do Different Divisions Experience Different Hauntings?"),
     p("Beyond where hauntings occur, the types of paranormal experiences reported may also reveal interesting regional patterns. Compare auditory, physical, tactile, and visual phenomena across the nine U.S. Census divisions."),
-    p("Select a region to investigate its paranormal profile, or explore all divisions to see the national picture."),
+    p("Select a division to investigate its paranormal profile, or explore all divisions to see the national picture."),
     
     sidebarLayout(
       sidebarPanel(
@@ -344,7 +344,7 @@ dashboardBody(
           width = 12,
           solidHeader = TRUE,
           
-          p("Which experiences are reported most frequently? Compare the different categories of paranormal activity in your selected region."),
+          p("Which experiences are reported most frequently? Compare the different categories of paranormal activity in your selected division."),
           plotOutput(
             "divisionBarChart2", 
             height = "450px", 
@@ -358,7 +358,7 @@ dashboardBody(
           width = 12,
           solidHeader = TRUE,
           
-          p("Select a bar in the chart to uncover more about the reported paranormal activity in this region."),
+          p("Select a bar in the chart to uncover more about the reported paranormal activity in this division."),
           textOutput("bar_information")
         )
       )
