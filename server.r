@@ -39,8 +39,9 @@ function(input, output, session){
       theme(
         axis.text.x = element_text(
           angle = 45,
-          hjust = 1
-        )
+          hjust = 1,
+        ),
+        panel.background = element_blank()
       )
     
   })
@@ -160,11 +161,14 @@ function(input, output, session){
     if(input$century == "All Centuries"){
       ggplot(
         by_century %>% filter(input$century == "All Centuries" | century == input$century), 
-        aes(century)) + geom_bar()
+        aes(century)) + geom_bar() + theme(panel.background = element_blank())
    } else{
       ggplot(by_century %>% filter(century == input$century), 
              aes(fct_infreq(setting))
-      ) + geom_bar()}
+      ) + geom_bar() + 
+       theme(
+         panel.background = element_blank()
+       )}
   })
   
 

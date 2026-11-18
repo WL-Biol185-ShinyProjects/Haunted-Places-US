@@ -179,7 +179,7 @@ dashboardBody(
   
 #Page 2: What kinds of places are haunted?
   tabItem(tabName = "TotalbySetting",
-          h1("What kinds of places are haunted?"),
+          h1("What Kinds of Places are Haunted?"),
           p("Haunted places are found in all kinds of locations across America. From schools and cemeteries to private homes and hotels, reports of hauntings span a wide variety of settings."),
           p("But are some places more commonly associated with hauntings than others? Explore the data below to find out!"),
           #br(), what does this do?
@@ -238,7 +238,7 @@ dashboardBody(
               solidHeader = TRUE,
               
               p("Haunted place records span multiple centuries. Looking at their historical distribution helps us understand which time periods are most represented in the dataset."),
-              p("Select a century to explore the distribution of haunted paces across historical periods."),
+              p("Select a century to explore the distribution of haunted places across historical periods."),
               
               selectInput(
                 inputId = "century",
@@ -374,7 +374,7 @@ dashboardBody(
     fluidRow(
       box(
         width = 3,
-        title = "Choose Your Desitnation",
+        title = "Choose Your Destination",
         status = "primary",
         solidHeader = TRUE,
         
