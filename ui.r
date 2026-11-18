@@ -30,6 +30,7 @@ ui <- dashboardPage(
 
 dashboardBody(
   tags$head(
+    
     tags$style(HTML("
     /* Hide the original title area */
     .main-header .logo {
@@ -59,8 +60,8 @@ dashboardBody(
       font-size: 18px;
       font-weight: 400;
     }
-  "))
-  ),
+"))
+),
   tabItems(
   
     
@@ -80,7 +81,7 @@ dashboardBody(
                 value = "50",
                 subtitle = "States to Explore",
                 icon = icon("map-marked-alt"),
-                color = "light-blue",
+                color = "black",
                 width = 4
               ),
               
@@ -88,7 +89,7 @@ dashboardBody(
                 value = "Haunted Locations",
                 subtitle = "Discover America's spooky history",
                 icon = icon("ghost"),
-                color = "light-blue",
+                color = "black",
                 width = 4
               ),
               
@@ -96,7 +97,7 @@ dashboardBody(
                 value = "Explore",
                 subtitle = "Find haunted places near you",
                 icon = icon("search"),
-                color = "light-blue",
+                color = "black",
                 width = 4
               )
               
@@ -132,7 +133,7 @@ dashboardBody(
                 style = "font-size: 20px ,margin-bottom: 10px;",
                 width = 4,
                 solidHeader = TRUE,
-                status = "danger",
+                status = "primary",
                 
                 
                 tags$ul(
